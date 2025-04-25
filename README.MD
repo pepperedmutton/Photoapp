@@ -5,6 +5,7 @@ The app shall allow users to upload photos, to search uploaded photos, to commen
 1.1 The authentication shall allow the users to log in using email and password  
 1.2 The authentication shall allow users to sign up using email and password  
 1.3 The authentication shall bring user to homepage once log in is completed  
+1.4 When a photo is clicked, it shall bring user to single photo view  
   
 2 Homepage  
 2.1 The homepage shall have a search bar at the top  
@@ -25,3 +26,12 @@ The app shall allow users to upload photos, to search uploaded photos, to commen
 4.1 The search screen shall display photos fitting the tags  
 4.2 The search screen shall have a button pointing to upload screen  
 4.3 The search screen shall have a button pointing to homepage  
+
+5.Single view  
+5.1 It shall display selected photo in full screen
+5.2 It shall allow users to post comment  
+5.3 It shall allow users to view comment  
+5.4 It shall allow users to view metadata  
+5.5 It shall allow users to view tags  
+5.5 It shall allow users to propose tag change or metadata change  
+5.6 It shall provide a button to go back to homepage  
