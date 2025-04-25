@@ -28,7 +28,7 @@ The app shall allow users to upload photos, to search uploaded photos, to commen
 4.3 The search screen shall have a button pointing to homepage  
 
 5.Single view  
-5.1 It shall display selected photo in full screen
+5.1 It shall display selected photo in full screen  
 5.2 It shall allow users to post comment  
 5.3 It shall allow users to view comment  
 5.4 It shall allow users to view metadata  
