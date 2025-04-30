@@ -75,6 +75,7 @@
       transition: transform 0.3s, box-shadow 0.3s;
       animation: fadeInMoveUp 0.8s ease forwards;
       transform-style: preserve-3d;
+      cursor: pointer; /* Make it clear it's clickable */
     }
 
     .card:hover {
@@ -145,6 +146,7 @@
           <p><strong>Camera:</strong> ${photo.metadata.camera}</p>
           <p><strong>Lens:</strong> ${photo.metadata.lens}</p>
         `;
+        card.addEventListener('click', () => openPhotoView(photo.id)); // Make card clickable
         galleryEl.appendChild(card);
       });
     }

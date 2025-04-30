@@ -120,6 +120,12 @@ function viewPhotos(sortBy = 'date') {
   return sortedGallery;
 }
 
+// Single Photo View Redirect
+function openPhotoView(photoId) {
+  localStorage.setItem('selectedPhotoId', photoId);
+  window.location.href = '../pages/photo-view.html';
+}
+
 // 3. Comment System
 function addComment(photoId, commentText, author) {
   const photo = gallery.find(p => p.id === photoId);
@@ -192,6 +198,7 @@ function renderDevices() {
       <p><strong>Brand:</strong> ${device.brand}</p>
       <p><strong>Model:</strong> ${device.model}</p>
     `;
+    card.addEventListener('click', () => openPhotoView(device.id));
     deviceGallery.appendChild(card);
   });
 }

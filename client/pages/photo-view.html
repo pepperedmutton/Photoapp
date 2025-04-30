@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo View - ProCamShare</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .back-btn {
+      margin: 2rem 0 1rem 2rem;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #0077cc;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #005fa3;
+    }
+    .photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .photo-container img {
+      max-width: 90vw;
+      max-height: 60vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn" id="back-to-gallery">← Back</button>
+  <div class="photo-container" id="single-photo-details"></div>
+  <script src="../script.js"></script>
+  <script>
+    document.getElementById('back-to-gallery').onclick = function() {
+      window.history.back();
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const photoId = Number(localStorage.getItem('selectedPhotoId'));
+      const gallery = JSON.parse(localStorage.getItem('gallery') || '[]');
+      const photo = gallery.find(p => p.id === photoId);
+      if (photo) {
+        document.getElementById('single-photo-details').innerHTML = `
+          <img src="${photo.url}" alt="" />
+          <h2>${photo.metadata.name || ''}</h2>
+          <p><strong>Camera:</strong> ${photo.metadata.camera || ''}</p>
+          <p><strong>Lens:</strong> ${photo.metadata.lens || ''}</p>
+        `;
+      } else {
+        document.getElementById('single-photo-details').innerHTML = '<p>Photo not found.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
