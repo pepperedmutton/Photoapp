@@ -219,9 +219,9 @@
     </div>
   </section>
 
-  <!-- Carousel of public photos START -->
+  <!-- Carousel of all uploaded photos START -->
   <section id="photo-carousel-section" class="carousel-section reveal">
-    <h2>Explore Uploaded Photos</h2>
+    <h2>Explore All Uploaded Photos</h2>
     <div class="carousel-container">
       <button class="carousel-btn" id="carousel-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
       <div class="carousel-track" id="carousel-track">
@@ -230,7 +230,7 @@
       <button class="carousel-btn" id="carousel-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
     </div>
   </section>
-  <!-- Carousel of public photos END -->
+  <!-- Carousel of all uploaded photos END -->
 
   <section id="flows" class="flows reveal">
     <h2>ProCamShare Basic User Flows</h2>
@@ -275,7 +275,7 @@
 
   <script src="script.js"></script>
   <script>
-  // Wide infinite carousel logic
+  // Wide infinite carousel logic for all uploaded photos
   document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('carousel-track');
     const prevBtn = document.getElementById('carousel-prev');
@@ -286,11 +286,11 @@
     let visibleCount = 1;
     let isTransitioning = false;
 
-    // Fetch all photos (replace endpoint as needed)
+    // Fetch all uploaded photos (not just public)
     fetch('/api/photos/all')
       .then(res => res.json())
       .then(data => {
-        photos = data;
+        photos = Array.isArray(data) ? data : [];
         renderCarousel();
       })
       .catch(() => {
@@ -323,7 +323,7 @@
       images.forEach((photo) => {
         const img = document.createElement('img');
         img.src = photo.url || photo.imageUrl || '';
-        img.alt = photo.alt || photo.title || 'Public Photo';
+        img.alt = photo.alt || photo.title || 'Photo';
         img.className = 'carousel-image';
         track.appendChild(img);
       });
@@ -371,7 +371,7 @@
     prevBtn.addEventListener('click', () => moveCarousel(-1));
     nextBtn.addEventListener('click', () => moveCarousel(1));
 
-    // Optional: swipe support for mobile
+    // Swipe support for mobile
     let startX = null;
     track.addEventListener('touchstart', e => {
       startX = e.touches[0].clientX;
