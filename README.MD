@@ -87,14 +87,14 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     - /api/search
 
     - /api/login
-        - POST {user, password}
+        - POST payload: {user, password}
         - provide JWT token in payload if success.
         - token will be send through a session cookie to authenticate all api calls
         - DELETE: logoff
         - PUT/GET: not supported
 
     - /api/tags: 
-        - GET: used by autocmplete. 
+        - GET: "/:search_term" used by autocmplete. 
             - the group camera & lenses are provided for all users 
             - other tags (freeform) are filtered by logged i user
         - POST: 
@@ -102,10 +102,10 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - DELETE/PUT: not supported in MVP1
 
     - /api/comments
-        - GET: {image_id}: get a list of all comments, with those one editable by the current user (extrapolate from session cookie)
-        - POST: {image_id} add a new comment
-        - DELETE: {post_id} delete a post
-        - PUT: {post_id} updat a post
+        - GET: "/:image_id" get a list of all comments, with those one editable by the current user (extrapolate from session cookie)
+        - POST: "/:image_id" add a new comment
+        - DELETE: "/:image_id" delete a post
+        - PUT: "/:image_id" updat a post
 
 # format of API return call ?
 ex: POST response
