@@ -7,7 +7,80 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+  <style>
+    .search-bar-container {
+      display: flex;
+      align-items: center;
+      margin-left: 2rem;
+      flex: 1;
+      max-width: 500px;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 24px;
+      font-size: 1.1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .search-bar:focus {
+      border-color: #0077cc;
+      box-shadow: 0 0 8px rgba(0,119,204,0.15);
+    }
+    .search-icon {
+      position: relative;
+      left: -2.5rem;
+      color: #888;
+      pointer-events: none;
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: #b0b6d4;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .navbar nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+      .search-bar-container {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 600px) {
+      .search-bar-container {
+        margin: 0.5rem 0 0 0;
+        max-width: 95vw;
+      }
+      .search-bar {
+        font-size: 1rem;
+      }
+      .navbar nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,9 +91,12 @@
       <a href="#flows">User Flows</a>
       <a href="#prototype">Prototype Sketches</a>
       <a href="./pages/persona.html" class="nav-link">👤 Persona</a>
-
       <button id="toggle-dark-mode">🌙</button>
     </nav>
+    <div class="search-bar-container">
+      <input type="text" class="search-bar" id="search-bar" placeholder="Search photos, users, or tags..." />
+      <span class="search-icon"><i class="fas fa-search"></i></span>
+    </div>
   </header>
 
   <section class="hero reveal" id="hero">
@@ -32,44 +108,43 @@
   </section>
 
   <section id="features" class="features reveal">
-    <h2>Core Features</h2>
+    <h2>ProCamShare Core Features</h2>
     <div class="features-grid">
-        <a href="pages/authentication.html" class="feature reveal">
-            <h3>User Authentication</h3>
-            <img src="./pages/user.png" alt="User Authentication" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-            <p>Sign up and log in easily.</p>
-          </a>
-          
+      <a href="pages/authentication.html" class="feature reveal">
+        <img src="./pages/user.png" alt="User Authentication" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <h3>User Authentication</h3>
+        <p>Sign up and log in easily.</p>
+      </a>
       <a href="pages/upload.html" class="feature reveal">
+        <img src="./pages/upload-pictures.png" alt="Upload Pictures" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <h3>Upload Pictures</h3>
-        <img src="./pages/upload-pictures.png" alt="Upload Pictures" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <p>Upload your best shots and add metadata.</p>
       </a>
       <a href="pages/view-sort.html" class="feature reveal">
+        <img src="./pages/view-sort.png" alt="View & Sort Photos" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <h3>View & Sort Photos</h3>
-        <img src="./pages/view-sort.png" alt="View & Sort Photos" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <p>Dynamic gallery with filters and sorting.</p>
       </a>
       <a href="pages/comment-system.html" class="feature reveal">
+        <img src="./pages/comment-section.png" alt="Comment section" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <h3>Comment Section</h3>
-        <img src="./pages/comment-section.png" alt="Comment section" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <p>Discuss and share feedback on photos.</p>
       </a>
       <a href="pages/device-library.html" class="feature reveal">
+        <img src="./pages/device-library.png" alt="Device Library" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <h3>Device Library</h3>
-        <img src="./pages/device-library.png" alt="Device Library" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <p>Explore and link devices to your photos.</p>
       </a>
       <a href="pages/manage-gallery.html" class="feature reveal">
+        <img src="./pages/manage-gallery.png" alt="Manage Gallery" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <h3>Manage Your Gallery</h3>
-        <img src="./pages/manage-gallery.png" alt="Manage Gallery" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
         <p>Edit, update, or delete your uploads.</p>
       </a>
     </div>
   </section>
 
   <section id="flows" class="flows reveal">
-    <h2>Basic User Flows</h2>
+    <h2>ProCamShare Basic User Flows</h2>
     <div class="flow-item reveal">
       <h3>Upload Picture</h3>
       <p>Select a photo, enter metadata, submit, and view it in "My Photos".</p>
@@ -89,7 +164,7 @@
   </section>
 
   <section id="prototype" class="prototype reveal">
-    <h2>Paper Prototype Sketch Ideas</h2>
+    <h2>ProCamShare Prototype Sketch Ideas</h2>
     <ul>
       <li><strong>Home Screen:</strong> Logo + Navigation Menu (Gallery, Upload, My Photos, Devices)</li>
       <li><strong>Gallery Page:</strong> Thumbnails grid, Filter and Sort controls</li>

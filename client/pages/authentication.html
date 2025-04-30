@@ -196,7 +196,8 @@
           const username = document.getElementById('signin-username').value;
           const password = document.getElementById('signin-password').value;
           if (username && password) {
-            alert('Welcome back, ' + username + '!');
+            // Redirect to homepage after successful login
+            window.location.href = '../index.html';
           } else {
             alert('Please enter your username and password.');
           }
