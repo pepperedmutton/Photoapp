@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Login(props) {
+export function Tag(props) {
     return (
         <>
         </>
