@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
-export function authMiddleware(req, res, next) {
+export default function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
   // Check header exists
