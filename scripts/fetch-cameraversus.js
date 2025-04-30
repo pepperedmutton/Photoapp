@@ -1,19 +1,57 @@
+import fs from "fs";
+import { finished } from 'stream/promises';
+import { Readable } from 'stream';
 
-const HOST="https://api.cameravers.us"
-const CAMERA_PATH="/api/cameras"
-const LEN_PATH="/api/lens"
-const PAGE_SIZE=15
+const HOST="https://api.cameravers.us/api"
 
-// https://api.cameravers.us/api/cameras?name=&filters={%22brand%22:[]}%20%20%20%20%20%20&sort=name_asc%20%20%20%20%20%20&page=4
-let resp = await fetch(`${HOST}${CAMERA_PATH}`);
-let rc = resp.statusCode;
-let body = await resp.json();
+let cameras = [];
+let lenses = [];
 
-console.log(body);
+/**
+ * path must exist
+ * 
+ * @param {*} url 
+ * @param {*} path 
+ */
+const downloadImage = async (url, path) => {
+    let resp = await fetch(url);
+    let fileStream = fs.createWriteStream(path, { flags: 'wx' });
+    try {
+        await finished(Readable.fromWeb(resp.body).pipe(fileStream));
+    } catch (EEXIST) {
+        // nothing to do if already there
+        // console.log("Oops, already exist");
+    }
+} 
 
-body.data.forEach(element => {
-    console.log(`${element.id}: ${element.name}`);
-});
-    console.log(`
-    console.log(`${element.id}: ${element.name}`);
-});
+let data = {};
+
+for (let thing of ["cameras", "lenses"]) {
+    let currentPage = 1;
+    let lastPage = 1;
+    data[thing] = [];
+    process.stdout.write(`fetching ${thing} data: `);
+    do {
+        process.stdout.write(currentPage.toString());
+
+        let resp = await fetch(`${HOST}/${thing}?page=${currentPage}`);
+        let body = await resp.json();
+
+        lastPage = body.meta.last_page;
+        
+        body.data.forEach(async element => {
+            // we only get first image here.
+            let image = element.images[0];
+            let thumb = element.images_thumbs[0];
+
+            let imageName=element.name.replaceAll(' ','-').toLowerCase();
+            let x = await downloadImage(thumb, `download/${imageName}.jpg`);
+            data[thing].push({ name: element.name, image: `${imageName}.jpg` });
+        });
+        currentPage++;
+    }
+    while (currentPage < lastPage)
+    console.log(" done");
+}
+
+console.log(data);
