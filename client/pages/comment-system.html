@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comment System - ProCamShare</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: white;
+      color: #0077cc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .home-link:hover {
+      background: #005fa3;
+      color: white;
+    }
+
+    .feature-detail {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInMoveUp 0.8s ease forwards;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .comment-input {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .comment-input:focus {
+      outline: none;
+      border-color: #0077cc;
+      box-shadow: 0 0 8px rgba(0, 119, 204, 0.5);
+    }
+
+    .comments-list {
+      margin-top: 1rem;
+      width: 100%;
+      list-style: none;
+      padding: 0;
+    }
+
+    .comments-list li {
+      background: #f0f8ff;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeInMoveUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="home-link">🏠 Home</a>
+
+  <header>
+    <div class="logo">ProCamShare</div>
+    <button id="toggle-dark-mode" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">🌙
+</button>
+  </header>
+
+  <section class="feature-detail">
+    <h1>Comment on Photos</h1>
+
+    <div id="commentGallery" class="gallery"></div>
+
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis</p>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    function renderCommentGallery() {
+      const galleryEl = document.getElementById('commentGallery');
+      const photos = viewPhotos();
+      galleryEl.innerHTML = '';
+
+      photos.forEach(photo => {
+        if (!photo || !photo.metadata) return;
+
+        const container = document.createElement('div');
+        container.classList.add('card');
+
+        container.innerHTML = `
+          <img src="${photo.url}" alt="Photo Preview" />
+          <h3>${photo.metadata.name}</h3>
+          <input type="text" class="comment-input" placeholder="Add a comment..." 
+            onkeydown="if(event.key==='Enter'){submitComment(${photo.id}, this);}" />
+          <ul class="comments-list">
+            ${(photo.comments || []).map(c => `<li>${c.author}: ${c.text}</li>`).join('')}
+          </ul>
+        `;
+
+        galleryEl.appendChild(container);
+      });
+    }
+
+    function submitComment(photoId, inputEl) {
+      const text = inputEl.value.trim();
+      if (text !== '') {
+        addComment(photoId, text, 'You');
+        inputEl.value = '';
+        renderCommentGallery();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCommentGallery();
+    });
+  </script>
+
+</body>
+</html>

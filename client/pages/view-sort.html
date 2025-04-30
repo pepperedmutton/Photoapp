@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View & Sort Photos - ProCamShare</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: white;
+      color: #0077cc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .home-link:hover {
+      background: #005fa3;
+      color: white;
+    }
+
+    .feature-detail {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sort-dropdown {
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeInMoveUp 0.8s ease forwards;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      transform: perspective(800px) rotateY(5deg) rotateX(5deg);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes fadeInMoveUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="home-link">🏠 Home</a>
+
+  <header>
+    <div class="logo">ProCamShare</div>
+    <button id="toggle-dark-mode" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">🌙</button>
+  </header>
+
+  <section class="feature-detail">
+    <h1>Gallery</h1>
+
+    <select id="sortSelect" class="sort-dropdown" onchange="renderGallery(this.value)">
+      <option value="date">Sort by Date (Newest)</option>
+      <option value="name">Sort by Photo Name</option>
+      <option value="camera">Sort by Camera Model</option>
+    </select>
+
+    <div id="gallery" class="gallery"></div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis</p>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    function renderGallery(sortBy = 'date') {
+      const galleryEl = document.getElementById('gallery');
+      const photos = viewPhotos(sortBy);
+      galleryEl.innerHTML = '';
+
+      photos.forEach(photo => {
+        if (!photo || !photo.metadata) return;
+
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+          <img src="${photo.url}" alt="Photo Preview" />
+          <h3>${photo.metadata.name}</h3>
+          <p><strong>Camera:</strong> ${photo.metadata.camera}</p>
+          <p><strong>Lens:</strong> ${photo.metadata.lens}</p>
+        `;
+        galleryEl.appendChild(card);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGallery();
+    });
+  </script>
+
+</body>
+</html>

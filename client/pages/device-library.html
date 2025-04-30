@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Library - ProCamShare</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: white;
+      color: #0077cc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .home-link:hover {
+      background: #005fa3;
+      color: white;
+    }
+
+    .feature-detail {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .device-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: fadeInMoveUp 0.8s ease forwards;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .input-field, .button, .device-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .input-field:focus, .device-select:focus {
+      outline: none;
+      border-color: #0077cc;
+      box-shadow: 0 0 8px rgba(0, 119, 204, 0.5);
+    }
+
+    .button {
+      background: #0077cc;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .button:hover {
+      background: #005fa3;
+      transform: scale(1.05);
+    }
+
+    .device-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .device-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: fadeInMoveUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInMoveUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="home-link">🏠 Home</a>
+
+  <header>
+    <div class="logo">ProCamShare</div>
+    <button id="toggle-dark-mode" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">🌙</button>
+  </header>
+
+  <section class="feature-detail">
+    <h1>Device Library</h1>
+
+    <div class="device-form">
+      <select id="deviceType" class="device-select">
+        <option value="Camera">Camera</option>
+        <option value="Lens">Lens</option>
+      </select>
+      <input type="text" id="deviceBrand" placeholder="Brand (e.g., Canon)" class="input-field" required />
+      <input type="text" id="deviceModel" placeholder="Model (e.g., EOS R5)" class="input-field" required />
+      <input type="file" id="deviceImage" accept="image/*" class="input-field" />
+      <button class="button" onclick="handleAddDevice()">Add Device</button>
+    </div>
+    
+
+    <div id="deviceGallery" class="device-gallery"></div>
+
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis</p>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    function renderDevices() {
+    const deviceGallery = document.getElementById('deviceGallery');
+    deviceGallery.innerHTML = '';
+
+    const devices = listDevices();
+    devices.forEach(device => {
+      const card = document.createElement('div');
+      card.classList.add('device-card');
+      card.innerHTML = `
+        ${device.image ? `<img src="${device.image}" alt="${device.model}" style="width:100%; border-radius:8px; margin-bottom:1rem; max-height:180px; object-fit:cover;">` : ''}
+        <h3>${device.type}</h3>
+        <p><strong>Brand:</strong> ${device.brand}</p>
+        <p><strong>Model:</strong> ${device.model}</p>
+      `;
+      deviceGallery.appendChild(card);
+    });
+  }
+
+  function handleAddDevice() {
+    const type = document.getElementById('deviceType').value;
+    const brand = document.getElementById('deviceBrand').value.trim();
+    const model = document.getElementById('deviceModel').value.trim();
+    const imageInput = document.getElementById('deviceImage');
+    const file = imageInput.files[0];
+
+    if (!brand || !model) {
+      alert('Please enter both brand and model.');
+      return;
+    }
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        addDevice(type, brand, model, event.target.result);
+        renderDevices();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      addDevice(type, brand, model, null);
+      renderDevices();
+    }
+
+    document.getElementById('deviceBrand').value = '';
+    document.getElementById('deviceModel').value = '';
+    imageInput.value = '';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    renderDevices();
+  });
+  </script>
+
+</body>
+</html>

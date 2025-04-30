@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Pictures - ProCamShare</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: white;
+      color: #0077cc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .home-link:hover {
+      background: #005fa3;
+      color: white;
+    }
+
+    .feature-detail {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .upload-area {
+      border: 2px dashed #0077cc;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      background: white;
+      transition: background 0.3s, border-color 0.3s;
+      cursor: pointer;
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 2rem;
+      animation: fadeInMoveUp 0.8s ease forwards;
+    }
+
+    .upload-area.dragover {
+      background: #e0f2ff;
+      border-color: #005fa3;
+    }
+
+    .preview-img {
+      margin-top: 1rem;
+      max-width: 100%;
+      height: auto;
+      display: none;
+      border-radius: 8px;
+    }
+
+    .input-field, .button {
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .success-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 8px;
+      display: none;
+    }
+
+    @keyframes fadeInMoveUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../index.html" class="home-link">🏠 Home</a>
+
+  <header>
+    <div class="logo">ProCamShare</div>
+  </header>
+
+  <section class="feature-detail">
+    <h1>Upload Your Picture</h1>
+    <button id="toggle-dark-mode" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">🌙</button>
+
+    <div id="uploadArea" class="upload-area">
+      Drag & Drop your photo here<br>or<br><strong>Click to Select</strong>
+      <input type="file" id="photoInput" accept="image/*" style="display:none;" />
+      <img id="previewImg" class="preview-img" />
+    </div>
+
+    <input type="text" id="photoName" placeholder="Photo Title" class="input-field" required />
+    <input type="text" id="cameraModel" placeholder="Camera Model" class="input-field" />
+    <input type="text" id="lensModel" placeholder="Lens Model" class="input-field" />
+    <button class="button" onclick="handleUpload()">Upload Picture</button>
+
+    <div id="successMessage" class="success-message">
+      ✅ Picture uploaded successfully!
+    </div>
+
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis</p>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    const uploadArea = document.getElementById('uploadArea');
+    const photoInput = document.getElementById('photoInput');
+    const previewImg = document.getElementById('previewImg');
+    const successMessage = document.getElementById('successMessage');
+
+    uploadArea.addEventListener('click', () => photoInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        photoInput.files = e.dataTransfer.files;
+        previewPhoto();
+      }
+    });
+
+    photoInput.addEventListener('change', previewPhoto);
+
+    function previewPhoto() {
+      const file = photoInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          previewImg.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleUpload() {
+      const file = photoInput.files[0];
+      if (!file) {
+        alert('Please select a photo!');
+        return;
+      }
+
+      const metadata = {
+        name: document.getElementById('photoName').value || 'Untitled',
+        camera: document.getElementById('cameraModel').value || 'Unknown',
+        lens: document.getElementById('lensModel').value || 'Unknown',
+        iso: '100',
+        shutter: '1/250s',
+        aperture: 'f/2.8'
+      };
+
+      uploadPicture(file, metadata, (newPhoto) => {
+        successMessage.style.display = 'block';
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 2500);
+        photoInput.value = '';
+        document.getElementById('photoName').value = '';
+        document.getElementById('cameraModel').value = '';
+        document.getElementById('lensModel').value = '';
+        previewImg.style.display = 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProCam Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">ProCamShare</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#flows">User Flows</a>
+      <a href="#prototype">Prototype Sketches</a>
+      <a href="./pages/persona.html" class="nav-link">👤 Persona</a>
+
+      <button id="toggle-dark-mode">🌙</button>
+    </nav>
+  </header>
+
+  <section class="hero reveal" id="hero">
+    <div class="hero-content">
+      <h1>Share Your Passion for Photography</h1>
+      <p>Upload, explore, and discuss high-quality photos with fellow photographers.</p>
+      <a href="#features" class="cta-button">Get Started</a>
+    </div>
+  </section>
+
+  <section id="features" class="features reveal">
+    <h2>Core Features</h2>
+    <div class="features-grid">
+        <a href="pages/authentication.html" class="feature reveal">
+            <h3>User Authentication</h3>
+            <img src="./pages/user.png" alt="User Authentication" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+            <p>Sign up and log in easily.</p>
+          </a>
+          
+      <a href="pages/upload.html" class="feature reveal">
+        <h3>Upload Pictures</h3>
+        <img src="./pages/upload-pictures.png" alt="Upload Pictures" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <p>Upload your best shots and add metadata.</p>
+      </a>
+      <a href="pages/view-sort.html" class="feature reveal">
+        <h3>View & Sort Photos</h3>
+        <img src="./pages/view-sort.png" alt="View & Sort Photos" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <p>Dynamic gallery with filters and sorting.</p>
+      </a>
+      <a href="pages/comment-system.html" class="feature reveal">
+        <h3>Comment Section</h3>
+        <img src="./pages/comment-section.png" alt="Comment section" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <p>Discuss and share feedback on photos.</p>
+      </a>
+      <a href="pages/device-library.html" class="feature reveal">
+        <h3>Device Library</h3>
+        <img src="./pages/device-library.png" alt="Device Library" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <p>Explore and link devices to your photos.</p>
+      </a>
+      <a href="pages/manage-gallery.html" class="feature reveal">
+        <h3>Manage Your Gallery</h3>
+        <img src="./pages/manage-gallery.png" alt="Manage Gallery" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+        <p>Edit, update, or delete your uploads.</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="flows" class="flows reveal">
+    <h2>Basic User Flows</h2>
+    <div class="flow-item reveal">
+      <h3>Upload Picture</h3>
+      <p>Select a photo, enter metadata, submit, and view it in "My Photos".</p>
+    </div>
+    <div class="flow-item reveal">
+      <h3>View Picture List</h3>
+      <p>Browse the gallery, apply filters or sort by upload date, popularity, or name.</p>
+    </div>
+    <div class="flow-item reveal">
+      <h3>Comment on Pictures</h3>
+      <p>Open a picture, scroll to the comment section, add a comment, and post it instantly.</p>
+    </div>
+    <div class="flow-item reveal">
+      <h3>Delete Picture</h3>
+      <p>Only the uploader can delete a picture with confirmation for safety.</p>
+    </div>
+  </section>
+
+  <section id="prototype" class="prototype reveal">
+    <h2>Paper Prototype Sketch Ideas</h2>
+    <ul>
+      <li><strong>Home Screen:</strong> Logo + Navigation Menu (Gallery, Upload, My Photos, Devices)</li>
+      <li><strong>Gallery Page:</strong> Thumbnails grid, Filter and Sort controls</li>
+      <li><strong>Upload Screen:</strong> Image selector, Text inputs for metadata, Submit button</li>
+      <li><strong>Picture Detail:</strong> Full image, Metadata, Comment section, Delete button</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
