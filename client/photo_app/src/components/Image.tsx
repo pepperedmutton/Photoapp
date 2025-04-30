@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Image = ({ photo, onBack }) => (
+interface Photo {
+  url: string;
+  title: string;
+}
+
+interface ImageProps {
+  photo: Photo;
+  onBack: () => void;
+}
+
+const Image: React.FC<ImageProps> = ({ photo, onBack }) => (
   <div className="image-detail">
     <button onClick={onBack}>Back</button>
     <img src={photo.url} alt={photo.title} />

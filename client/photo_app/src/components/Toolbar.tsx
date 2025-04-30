@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Toolbar = ({ onSearch, shortcuts }) => (
+interface Shortcut {
+  label: string;
+  action: () => void;
+}
+
+interface ToolbarProps {
+  onSearch: (query: string) => void;
+  shortcuts: Shortcut[];
+}
+
+const Toolbar: React.FC<ToolbarProps> = ({ onSearch, shortcuts }) => (
   <div className="toolbar">
     <input
       type="text"

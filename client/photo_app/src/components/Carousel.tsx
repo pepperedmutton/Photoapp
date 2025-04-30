@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Carrousel = ({ photos }) => (
+interface Photo {
+  id: string | number;
+  url: string;
+  title?: string;
+}
+
+interface CarouselProps {
+  photos: Photo[];
+}
+
+const Carousel: React.FC<CarouselProps> = ({ photos }) => (
   <div className="carrousel">
     {photos.map(photo => (
       <img
@@ -13,4 +23,4 @@ const Carrousel = ({ photos }) => (
   </div>
 );
 
-export default Carrousel;
+export default Carousel;

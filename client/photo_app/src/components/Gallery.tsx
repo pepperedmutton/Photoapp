@@ -1,6 +1,17 @@
 import React from 'react';
 
-const Gallery = ({ photos, onSelect }) => (
+interface Photo {
+  id: string | number;
+  thumbnailUrl: string;
+  title: string;
+}
+
+interface GalleryProps {
+  photos: Photo[];
+  onSelect: (photo: Photo) => void;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ photos, onSelect }) => (
   <div className="gallery-grid">
     {photos.map(photo => (
       <img

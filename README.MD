@@ -81,7 +81,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
 
 # Api categories
-    - /api/gallery
+    - /api/gallery 
     - /api/image
     - /api/upload
     - /api/search
