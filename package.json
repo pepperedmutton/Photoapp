@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "client": "npm --prefix client run dev",
+    "client": "npm --prefix client/photo_app run dev",
     "server": "nodemon server/server.js",
     "build": "vite build",
     "lint": "eslint .",
