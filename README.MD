@@ -63,7 +63,57 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         during tests, it can be simulated with normal folder and File API calls.
     6.2 database will be postgres, and knex used for database abstraction layer
 
+
 7. React Components  
 
-    7.1 LoginForm  
-    7.2 UploadForm ...
+    - Luigi:
+        - Gallery (grid to display a user library)
+        - Image (detail)
+        - Upload (drag & drop & tagging)
+        - Carrousel (will be used on frontpage, with pictures tagged as "public" in random order)
+        - Toolbar (top level toolbar with 1 input: search & hardcoded shortcuts)
+
+    - Frédéric
+        - Login (user/password form)
+        - TagsManagement (tags management)
+        - Tags (tagging of an image)
+        - Comments (display/edit comments timeline)
+
+
+# Api categories
+    - /api/gallery
+    - /api/image
+    - /api/upload
+    - /api/search
+
+    - /api/login
+        - POST {user, password}
+        - provide JWT token in payload if success.
+        - token will be send through a session cookie to authenticate all api calls
+        - DELETE: logoff
+        - PUT/GET: not supported
+
+    - /api/tags: 
+        - GET: used by autocmplete. 
+            - the group camera & lenses are provided for all users 
+            - other tags (freeform) are filtered by logged i user
+        - POST: 
+            - add a tag to a user library
+        - DELETE/PUT: not supported in MVP1
+
+    - /api/comments
+        - GET: {image_id}: get a list of all comments, with those one editable by the current user (extrapolate from session cookie)
+        - POST: {image_id} add a new comment
+        - DELETE: {post_id} delete a post
+        - PUT: {post_id} updat a post
+
+# format of API return call ?
+ex: POST response
+{ 
+    resultLessage: "success|failure" => MANDATORY
+    resultCode: 1 (success) | 0 (failure) => MANDATORY
+    data: json object in response => OPTIONAL
+ }
+
+
+## 
