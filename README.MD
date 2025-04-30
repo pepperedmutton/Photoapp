@@ -17,22 +17,25 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 1.1 The authentication shall allow the users to log in using email and password  
 1.2 The authentication shall allow users to sign up using email and password  
 1.3 The authentication shall bring user to homepage once log in is completed  
-1.4 When a photo is clicked, it shall bring user to single photo view  
+1.4 user/pass will be stored in database, password will be salted and there will be a change password form
 
 2 Homepage  
 2.1 The homepage shall have a search bar at the top  
 2.2 The homepage shall display thumbnail pictures as its body  
 2.3 The homepage shall provide an upload button which brings the user to upload screen  
-
+2.4 When a photo is clicked, it shall bring user to single photo view  
+  
 3 Upload  
 3.1 The upload screen shall allow users to upload photos from gallery(local storage)  
-3.2 The uoload screen shall allow users to fill in metadata in a form  
+3.2 The upload screen shall allow users to fill in metadata in a form  
 3.2.1 In case the photo is in JPEG, it should attempt to retrieve metadata first  
-3.3 The uploaded photo shall be stored and searchable  
-3.4 It shall have a button to initiate the upload  
-3.5 When upload is done it shall present message that upload is successful  
-3.6 It shall allow users to abort upload at any stage  
-3.7 It shall provide a button for the user to go back to homepage  
+3.2.2 Metadata (size, position, ...) can be extended through tags
+3.2.3 Tags will come from database and there will be 3 types (camera model, lens model and freeform)
+3.2.4 camera model & lens model will be preloaded with data from https://cameraversus.com/. a json file with data will be provided for seeding db
+3.3 It shall have a button to initiate the upload  
+3.4 When upload is done it shall present message that upload is successful  
+3.5 It shall allow users to abort upload at any stage  
+3.6 It shall provide a button for the user to go back to homepage
   
 4 Search  
 4.1 The search screen shall display photos fitting the tags  
@@ -47,3 +50,13 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 5.5 It shall allow users to view tags  
 5.5 It shall allow users to propose tag change or metadata change  
 5.6 It shall provide a button to go back to homepage  
+
+6.Infrastructure
+6.1 Images will be stored in a render persistant storage and mounted under dist/storage. this is where image will be uploaded.
+    during tests, it can be simulated with normal folder and File API calls.
+6.2 database will be postgres, and knex used for database abstraction layer
+
+7 React components
+7.1 LoginForm
+7.2 UploadForm
+7.3 ...
