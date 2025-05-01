@@ -184,3 +184,32 @@ await fetch('/api/image', {
   })  
 });  
 ```
+
+### Frontend Upload Implementation Details
+
+**Endpoint:**  
+- `POST /api/photos/upload`
+
+**Headers:**  
+- (Optional) `Authorization: Bearer <token>` (if authentication is required)
+
+**Request Body:**  
+- `multipart/form-data` with the following fields:
+  - `image`: The uploaded image file (required, type: image/*)
+  - `title`: (optional) string
+  - `description`: (optional) string
+
+**Frontend expects:**
+- `201` or `200` status for success (shows "Photo uploaded successfully!")
+- Any error status for failure (shows "Upload failed." or "Error uploading photo.")
+
+**Notes:**
+- The backend should parse `multipart/form-data`.
+- The backend should save the image and metadata (`title`, `description`).
+- If authentication is required, validate the Bearer token from the `Authorization` header.
+
+
+- The field names in the form (`image`, `title`, `description`)
+- The endpoint URL (`/api/photos/upload`)
+- The expected response codes and messages
+- If authentication is required, the frontend will send a Bearer token in the header
