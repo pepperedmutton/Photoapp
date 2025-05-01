@@ -8,6 +8,10 @@
   margin-right: 4px;
 }
 
+.navbar-btn {
+  width: 120px;
+}
+
 .button-signup {
   background: none;
   border: none;

@@ -77,9 +77,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             /> */}
           </div>
 
-          <button className="toolbar-btn" onClick={handleToggleDarkMode}>
-            🌙
-          </button>
+ 
       </div>
 
       <div className="toolbar-middle">
@@ -87,7 +85,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
           setStatusMessage={setStatusMessage}
           setLoginToken={setLoginToken}
         />
-        </div>
+        <button className="light-mode-btn" onClick={handleToggleDarkMode}>
+        🌙
+        </button>
+      </div>
+
       <div className="toolbar-bottom">
         <Status
           statusMessage={statusMessage}

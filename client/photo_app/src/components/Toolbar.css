@@ -1,7 +1,12 @@
+/* .toolbar-logo {
+    display: float;
+} */
+
 .toolbar-top {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    height: 1.5em;
+    height: 1.5em; */
+    display: none;
 }
 
 .toolbar-sort {
@@ -13,10 +18,14 @@
 }
 
 .toolbar-middle {
-    display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
 .toolbar-bottom {
     display: block;
-    /* background-color: green; */
+}
+
+.light-mode-btn {
+    display: inline;
 }
