@@ -137,7 +137,13 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         timeStamp  
         }  
         - PUT: "/:image_id" updat a post
-        same as delete, use the entire commnet object  
+        same as delete,use   
+        {  
+        user  
+        comment  
+        timeStamp  
+        }  
+        but with updated comment content, the backend only match timeStamp and user to find the old comment.  
 
     - **/api/gallery**  
          For retrieving the user's photo gallery (list of images, possibly with filters/search).
