@@ -7,7 +7,7 @@ import express from 'express';
 import exif from 'exif-parser';
 import { cp } from 'fs';
 const commentRouter = express.Router();
-commentRouter.post('/comment/:image_id', async (req, res) => {
+commentRouter.post('/:image_id', async (req, res) => {
     let comment = req.body.comment;
     let id = req.params.image_id;
     let date = new Date();
@@ -26,7 +26,7 @@ commentRouter.post('/comment/:image_id', async (req, res) => {
     });
   });
 
-  commentRouter.get('/comment/:image_id', async (req, res) => {
+  commentRouter.get('/:image_id', async (req, res) => {
     try {
       const id = req.params.image_id;
       const filePath = path.resolve('data', 'comment.json');
