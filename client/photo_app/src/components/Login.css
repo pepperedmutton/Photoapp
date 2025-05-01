@@ -1,0 +1,18 @@
+.auth-form {
+  display: flex;
+  margin: 4px;
+  /* justify-content: space-between; */
+}
+
+.navbar-input {
+  margin-right: 4px;
+}
+
+.button-signup {
+  background: none;
+  border: none;
+  color: #0077cc;
+  cursor: pointer;
+  text-decoration: underline;
+}
+

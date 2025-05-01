@@ -1,28 +1,14 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
-import Login from './components/Login';
-import { Status } from './components/Status';
+import Toolbar from './components/Toolbar';
 
 function App() {
-  
-  const [darkMode, setDarkMode] = useState(() => {
-    const stored = localStorage.getItem('darkMode');
-    return stored ? JSON.parse(stored) : false;
-  });
   const [currentSort, setCurrentSort] = useState('date');
   const [currentFilter, setCurrentFilter] = useState('');
-<<<<<<< HEAD
-
-  
-  useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
-=======
   const [darkMode, setDarkMode] = useState(false);
   const [loginToken, setLoginToken] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
->>>>>>> 51c2fa1615462ccc48b3f4a17cac9fb6c0d15fab
 
   const handleSortChange = (sortBy: string) => {
     setCurrentSort(sortBy);
@@ -37,40 +23,17 @@ function App() {
       {/* Navbar */}
       <header>
         <nav className="navbar">
-          <div className="navbar-left">
-            <span className="navbar-logo">📷 ProCamShare</span>
-            <select
-              value={currentSort}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="navbar-select"
-            >
-              <option value="date">Sort by Date</option>
-              <option value="name">Sort by Name</option>
-              <option value="camera">Sort by Camera</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Filter by tag or camera..."
-              value={currentFilter}
-              onChange={(e) => handleFilterChange(e.target.value)}
-              className="navbar-input"
-            />
-          </div>
-          <div className="navbar-right">
-            <button className="navbar-btn" onClick={handleToggleDarkMode}>
-              🌙
-            </button>
-            <button className="navbar-btn">Upload</button>
-            <button className="navbar-btn">Login</button>
-          </div>
+          <Toolbar
+            setStatusMessage={setStatusMessage}
+            setLoginToken={setLoginToken}
+            statusMessage={statusMessage}
+            handleToggleDarkMode={handleToggleDarkMode}
+            handleSortChange={handleSortChange}
+            handleFilterChange={handleFilterChange}
+            currentSort={currentSort}
+            currentFilter={currentFilter}
+          />
         </nav>
-        <Login
-          setStatusMessage={setStatusMessage}
-          setLoginToken={setLoginToken}
-        />
-        <Status
-          statusMessage={statusMessage}
-        />
       </header>
 
       {/* Hero Section */}

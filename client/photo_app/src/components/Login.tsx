@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Login.css'
 
 interface LoginProps {
   setStatusMessage: (message: string) => void;
@@ -68,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="input-field"
+          className="navbar-input"
           required
         />
         <input
@@ -76,28 +77,22 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="input-field"
+          className="navbar-input"
           required
         />
-        <button type="submit" className="button">
+        <button type="submit" className="navbar-btn">
           {isSignup ? 'Create Account' : 'Log In'}
         </button>
       </form>
-      <p style={{ marginTop: '1rem' }}>
-        {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '}
+      {/* <div> */}
+        {/* {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '} */}
         <button
-          onClick={() => setIsSignup(!isSignup)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#0077cc',
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
+            className="button-signup"
+            onClick={() => setIsSignup(!isSignup)}
         >
-          {isSignup ? 'Log in here' : 'Sign up here'}
+        {isSignup ? 'Log in here' : 'Sign up here'}
         </button>
-      </p>
+        {/* </div> */}
     </div>
   );
 };

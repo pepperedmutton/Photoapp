@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: ".env" });
 
 const DB_USER = process.env.DB_USER;
-const DB_NAME = "photos";
+const DB_NAME = "photos_app_db";
 const DB_HOST = "127.0.0.1";
 const DB_PORT = "5432";
 const DB_URL = process.env.DATABASE_URL;
