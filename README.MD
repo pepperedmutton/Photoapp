@@ -150,8 +150,9 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     **data**: Object (json) => OPTIONAL, the actual api call response (ex: list of tags)
  }
 ```
-```
+
 #format of post requesty header with JWT  
+```
 const token = localStorage.getItem('token');  
 
 await fetch('/api/image', {  
