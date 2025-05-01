@@ -151,7 +151,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
  }
 ```
 
-#format of post requesty header with JWT  
+# format of post requesty header with JWT  
 ```
 const token = localStorage.getItem('token');  
 
