@@ -58,5 +58,16 @@ imageRouter.post('/', async (req, res) => {
   });
 
 });
+imageRouter.post('/comment/:image_id', async (req, res) => {
+  let comment = req.body.comment;
+  let id = req.params.image_id;
 
+  res.json({
+    resultMessage: 'success',
+    resultCode: 1,
+    filename,
+    metadata: tags
+  });
+
+});
 export default imageRouter;

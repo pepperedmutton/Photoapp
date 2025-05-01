@@ -6,8 +6,9 @@ import bcrypt from 'bcrypt';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import imageRouter from './routes/photoRoutes.js'
-import  signupRouter from './routes/signupRoute.js'
+import signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
+import commentRouter from './routes/commentRouter.js';
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,7 @@ app.post("/api/login",async (req,res)=>{
 })
 app.use('/api/signup',signupRouter);
 app.use('/api/images',authMiddleware,imageRouter);
+app.use('/api/comments',authMiddleware,commentRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
