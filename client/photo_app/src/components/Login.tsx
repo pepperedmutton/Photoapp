@@ -1,27 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface LoginProps {
-  onLogin: (email: string, password: string) => void;
-  onSignup: (email: string, password: string) => void;
+  setStatusMessage: (message: string) => void;
+  setLoginToken: (token: string) => void;
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin, onSignup }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignup, setIsSignup] = useState(false);
+const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isSignup, setIsSignup] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    setStatusMessage("arghhh");
+
     e.preventDefault();
     if (isSignup) {
-      onSignup(email, password);
+        // manage the user creation (email, password)
+        let req = await fetch("http://127.0.0.1:3000/api/signup", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                name: "batman"
+            })
+        });
+        let resp = await req.json();
+        if (resp.resultCode !== 1) {
+            setStatusMessage("Account creation failed: ");
+        } else {
+            // setLoginToken(resp.token);
+            setStatusMessage("Account created");
+        }
+        console.log("response from signup api: ", resp);
+
     } else {
-      onLogin(email, password);
+        // manage the use login (email, password)
+        let req = await fetch("http://127.0.0.1:3000/api/login", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+        let resp = await req.json();
+        if (resp.resultCode !== 1) {
+            setStatusMessage("login failed !");
+        } else {
+            setLoginToken(resp.token);
+            setStatusMessage("Logged IN !");
+        }
+        console.log("response from login api: ", resp);
     }
   };
 
   return (
     <div className="auth-form">
-      <h2>{isSignup ? 'Sign Up' : 'Log In'}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"

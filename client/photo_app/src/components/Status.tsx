@@ -1,12 +1,14 @@
-// import React from 'react';
-import { APIResult } from '../types';
+interface StatusProps {
+    statusMessage: string;
+}
 
-export function Status({ code, message }: APIResult) {
+export const Status: React.FC<StatusProps> = ({ statusMessage }) => {
+    console.log("rendering status component !");
 
     return (
         <>
             <div className="status-bar">
-                <p>Status: {message} ({code})</p>
+                <p>Status: { statusMessage }</p>
             </div>
         </>
     )

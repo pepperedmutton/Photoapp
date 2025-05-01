@@ -1,11 +1,15 @@
 import './App.css';
 import { useState } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
+import Login from './components/Login';
+import { Status } from './components/Status';
 
 function App() {
   const [currentSort, setCurrentSort] = useState('date');
   const [currentFilter, setCurrentFilter] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [loginToken, setLoginToken] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleSortChange = (sortBy: string) => {
     setCurrentSort(sortBy);
@@ -47,6 +51,13 @@ function App() {
             <button className="navbar-btn">Login</button>
           </div>
         </nav>
+        <Login
+          setStatusMessage={setStatusMessage}
+          setLoginToken={setLoginToken}
+        />
+        <Status
+          statusMessage={statusMessage}
+        />
       </header>
 
       {/* Hero Section */}
