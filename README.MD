@@ -123,9 +123,27 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
     - /api/comments
         - GET: "/:image_id" get a list of all comments, with those one editable by the current user (extrapolate from session cookie)
+        - Post body format
+         {  
+          user:email  
+          content  
+          }
         - POST: "/:image_id" add a new comment
         - DELETE: "/:image_id" delete a post
+        - when deleting a post, use the entire comment object as req.body,which looks like  
+        {  
+        user  
+        comment  
+        timeStamp  
+        }  
         - PUT: "/:image_id" updat a post
+        same as delete,use   
+        {  
+        user  
+        comment  
+        timeStamp  
+        }  
+        but with updated comment content, the backend only match timeStamp and user to find the old comment.  
 
     - **/api/gallery**  
          For retrieving the user's photo gallery (list of images, possibly with filters/search).

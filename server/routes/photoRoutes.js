@@ -58,5 +58,4 @@ imageRouter.post('/', async (req, res) => {
   });
 
 });
-
 export default imageRouter;
