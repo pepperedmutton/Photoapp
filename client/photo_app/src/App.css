@@ -282,7 +282,7 @@ body.dark .device-form {
 body.dark .input-field,
 body.dark .device-select,
 body.dark .comment-input {
-  background: #2a2a2a;
+  background: #000000;
   border: 1px solid #555;
   color: #e0e0e0;
 }

@@ -2,37 +2,38 @@ import './App.css';
 import { useState } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
 import Toolbar from './components/Toolbar';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import UploadPhoto from './components/Upload';
 
-function App() {
-  const [currentSort, setCurrentSort] = useState('date');
-  const [currentFilter, setCurrentFilter] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
-  const [loginToken, setLoginToken] = useState('');
-  const [statusMessage, setStatusMessage] = useState('');
-
-  const handleSortChange = (sortBy: string) => {
-    setCurrentSort(sortBy);
-  };
-  const handleFilterChange = (filterBy: string) => {
-    setCurrentFilter(filterBy);
-  };
-  const handleToggleDarkMode = () => setDarkMode((prev) => !prev);
+function HomePage(props: {
+  currentSort: string;
+  currentFilter: string;
+  darkMode: boolean;
+  loginToken: string;
+  statusMessage: string;
+  setStatusMessage: (msg: string) => void;
+  setLoginToken: (token: string) => void;
+  handleToggleDarkMode: () => void;
+  handleSortChange: (sortBy: string) => void;
+  handleFilterChange: (filterBy: string) => void;
+}) {
+  const navigate = useNavigate();
 
   return (
-    <div className={darkMode ? 'dark' : 'light'}>
+    <div className={props.darkMode ? 'dark' : 'light'}>
       {/* Navbar */}
       <header>
         <nav className="navbar">
           <Toolbar
-            setStatusMessage={setStatusMessage}
-            setLoginToken={setLoginToken}
-            statusMessage={statusMessage}
-            handleToggleDarkMode={handleToggleDarkMode}
-            handleSortChange={handleSortChange}
-            handleFilterChange={handleFilterChange}
-            currentSort={currentSort}
-            currentFilter={currentFilter}
-            loginToken={loginToken}
+            setStatusMessage={props.setStatusMessage}
+            setLoginToken={props.setLoginToken}
+            statusMessage={props.statusMessage}
+            handleToggleDarkMode={props.handleToggleDarkMode}
+            handleSortChange={props.handleSortChange}
+            handleFilterChange={props.handleFilterChange}
+            currentSort={props.currentSort}
+            currentFilter={props.currentFilter}
+            loginToken={props.loginToken}
           />
         </nav>
       </header>
@@ -57,6 +58,7 @@ function App() {
           <div className="feature">
             <h3>📸 Upload Photos</h3>
             <p>Share your favorite shots with the community.</p>
+            <button onClick={() => navigate('/upload')}>Upload Photo</button>
           </div>
           <div className="feature">
             <h3>🔍 Manage Gallery</h3>
@@ -83,7 +85,7 @@ function App() {
         <div className="flow-item">
           <h3>Upload Flow</h3>
           <ol>
-            <li>Click the Upload button in the navbar.</li>
+            <li>Click the Upload button in the navbar or in the features section.</li>
             <li>Select your photo and fill in details.</li>
             <li>Submit to share with the community.</li>
           </ol>
@@ -161,6 +163,47 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  const [currentSort, setCurrentSort] = useState('date');
+  const [currentFilter, setCurrentFilter] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+  const [loginToken, setLoginToken] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
+
+  const handleSortChange = (sortBy: string) => {
+    setCurrentSort(sortBy);
+  };
+  const handleFilterChange = (filterBy: string) => {
+    setCurrentFilter(filterBy);
+  };
+  const handleToggleDarkMode = () => setDarkMode((prev) => !prev);
+
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              currentSort={currentSort}
+              currentFilter={currentFilter}
+              darkMode={darkMode}
+              loginToken={loginToken}
+              statusMessage={statusMessage}
+              setStatusMessage={setStatusMessage}
+              setLoginToken={setLoginToken}
+              handleToggleDarkMode={handleToggleDarkMode}
+              handleSortChange={handleSortChange}
+              handleFilterChange={handleFilterChange}
+            />
+          }
+        />
+        <Route path="/upload" element={<UploadPhoto />} />
+      </Routes>
+    </Router>
   );
 }
 
