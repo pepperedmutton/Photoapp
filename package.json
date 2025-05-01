@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start":"npm run server",
+    "start": "npm run server",
     "client": "npm --prefix client/photo_app run dev",
     "server": "nodemon server/server.js",
     "build": "vite build",
@@ -23,7 +23,8 @@
     "nodemon": "^3.1.10",
     "pg": "^8.15.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
