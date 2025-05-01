@@ -1,28 +1,11 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
-import Login from './components/Login';
-import { Status } from './components/Status';
 
 function App() {
-  
-  const [darkMode, setDarkMode] = useState(() => {
-    const stored = localStorage.getItem('darkMode');
-    return stored ? JSON.parse(stored) : false;
-  });
   const [currentSort, setCurrentSort] = useState('date');
   const [currentFilter, setCurrentFilter] = useState('');
-<<<<<<< HEAD
-
-  
-  useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
-=======
   const [darkMode, setDarkMode] = useState(false);
-  const [loginToken, setLoginToken] = useState('');
-  const [statusMessage, setStatusMessage] = useState('');
->>>>>>> 51c2fa1615462ccc48b3f4a17cac9fb6c0d15fab
 
   const handleSortChange = (sortBy: string) => {
     setCurrentSort(sortBy);
@@ -64,13 +47,6 @@ function App() {
             <button className="navbar-btn">Login</button>
           </div>
         </nav>
-        <Login
-          setStatusMessage={setStatusMessage}
-          setLoginToken={setLoginToken}
-        />
-        <Status
-          statusMessage={statusMessage}
-        />
       </header>
 
       {/* Hero Section */}
