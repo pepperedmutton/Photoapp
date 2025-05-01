@@ -34,7 +34,12 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     3.2 The upload screen shall allow users to fill in metadata in a form  
     3.2.1 In case the photo is in JPEG, it should attempt to retrieve metadata first  
     3.2.2 Metadata (size, position, ...) can be extended through tags
-    3.2.3 Tags will come from database and there will be 3 types (camera model, lens model and freeform)
+    3.2.3 Tags will come from database and there will be 3 types (camera model, lens model and freeform) there will be a 1-N relation between photo and tags.
+        the user can attach trough a autocomplete form from 0 to N tags to a photo.
+        there will be a special "tag" named "public" that will enable the public view (without being logged) of this particular in the frontpage. 
+        the carousel component will provide this view
+        this "public" tag should be take into account by the search call.
+        for this, we probably need a join table between photo and tag
     3.2.4 camera model & lens model will be preloaded with data from https://cameraversus.com/. a json file with data will be provided for seeding db
     3.3 It shall have a button to initiate the upload  
     3.4 When upload is done it shall present message that upload is successful  
@@ -78,11 +83,16 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - TagsManagement (tags management)
         - Tags (tagging of an image)
         - Comments (display/edit comments timeline)
+        - Status (on the Navbar, area for api call status code)
 
 
 # Api categories
     - /api/gallery 
-    - /api/image
+    - /api/image/
+        - GET: get an image and all it's metadata (tags, ...)
+    - /api/image/tag
+        - DELETE: remove a tag from an image
+        - PUT: add a new tag to an image
     - /api/upload
     - /api/search
 
@@ -92,6 +102,12 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - token will be send through a session cookie to authenticate all api calls
         - DELETE: logoff
         - PUT/GET: not supported
+
+    - /api/signup
+        - POST: {email, name, password (clear)}
+            possible response: 
+                - resultcode = 0: failure, and message will explain (like already registered)
+                - resultcode = 1: creation ok
 
     - /api/tags: 
         - GET: "/:search_term" used by autocmplete. 
@@ -109,11 +125,11 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
 # format of API return call ?
 ex: POST response
+
+```
 { 
-    resultLessage: "success|failure" => MANDATORY
-    resultCode: 1 (success) | 0 (failure) => MANDATORY
-    data: json object in response => OPTIONAL
+    **resultMessage**: String: "success|failure" => MANDATORY
+    **resultCode**: Number: 1 (success) | 0 (failure) => MANDATORY
+    **data**: Object (json) => OPTIONAL, the actual api call response (ex: list of tags)
  }
-
-
-## 
+```
