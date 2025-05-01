@@ -34,7 +34,9 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     3.2 The upload screen shall allow users to fill in metadata in a form  
     3.2.1 In case the photo is in JPEG, it should attempt to retrieve metadata first  
     3.2.2 Metadata (size, position, ...) can be extended through tags
-    3.2.3 Tags will come from database and there will be 3 types (camera model, lens model and freeform)
+    3.2.3 Tags will come from database and there will be 3 types (camera model, lens model and freeform) there will be a 1-N relation between photo and tags.
+        the user can attach trough a autocomplete form from 0 to N tags to a photo.
+        there will be a special "tag" (named public" that will enable the public (withouth being logged) in the frontpage. the carousel component will provide this view
     3.2.4 camera model & lens model will be preloaded with data from https://cameraversus.com/. a json file with data will be provided for seeding db
     3.3 It shall have a button to initiate the upload  
     3.4 When upload is done it shall present message that upload is successful  
@@ -82,7 +84,11 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
 # Api categories
     - /api/gallery 
-    - /api/image
+    - /api/image/
+        - GET: get an image and all it's metadata (tags, ...)
+    - /api/image/tag
+        - DELETE: remove a tag from an image
+        - PUT: add a new tag to an image
     - /api/upload
     - /api/search
 
