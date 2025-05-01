@@ -4,9 +4,10 @@ import './Login.css'
 interface LoginProps {
   setStatusMessage: (message: string) => void;
   setLoginToken: (token: string) => void;
+  loginToken: string;
 }
 
-const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
+const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken, loginToken }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSignup, setIsSignup] = useState(false);
@@ -62,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
   };
 
   return (
-    <div className="auth-form">
+    <div className={ loginToken.length > 0 ? "hidden" : "auth-form" }>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -90,7 +91,7 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
             className="button-signup"
             onClick={() => setIsSignup(!isSignup)}
         >
-        {isSignup ? 'Log in here' : 'Sign up here'}
+        {isSignup ? 'Log in instead' : 'No account ? click to sign up'}
         </button>
         {/* </div> */}
     </div>

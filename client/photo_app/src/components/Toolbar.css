@@ -28,4 +28,7 @@
 
 .light-mode-btn {
     display: inline;
+    margin-left: auto;
+    margin-top: 4px;
+    margin-right: 4px;
 }

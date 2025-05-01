@@ -243,6 +243,11 @@ Auth Form Styling
   background: #005fa3;
 }
 /* Dark Mode Defaults */
+div.dark {
+  background: grey;
+  color: #e0e0e0;
+}
+
 body.dark {
   background: #121212;
   color: #e0e0e0;

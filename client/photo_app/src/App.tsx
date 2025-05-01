@@ -19,7 +19,7 @@ function App() {
   const handleToggleDarkMode = () => setDarkMode((prev) => !prev);
 
   return (
-    <div className={darkMode ? 'darkmode' : 'light-mode'}>
+    <div className={darkMode ? 'dark' : 'light'}>
       {/* Navbar */}
       <header>
         <nav className="navbar">
@@ -32,6 +32,7 @@ function App() {
             handleFilterChange={handleFilterChange}
             currentSort={currentSort}
             currentFilter={currentFilter}
+            loginToken={loginToken}
           />
         </nav>
       </header>

@@ -11,6 +11,7 @@ interface ToolbarProps {
   // currentFilter: string;
   setStatusMessage: (message: string) => void;
   setLoginToken: (token: string) => void;
+  loginToken: string;
   statusMessage: string;
   handleToggleDarkMode: () => void;
   handleFilterChange: (filterBy: string) => void;
@@ -30,6 +31,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   handleSortChange,
   setStatusMessage,
   setLoginToken,
+  loginToken,
   statusMessage,
   currentSort,
   currentFilter,
@@ -84,6 +86,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         <Login
           setStatusMessage={setStatusMessage}
           setLoginToken={setLoginToken}
+          loginToken={loginToken}
         />
         <button className="light-mode-btn" onClick={handleToggleDarkMode}>
         🌙
