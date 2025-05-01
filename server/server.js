@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.post("/api/login",async (req,res)=>{
     let{email,password} = req.body;
@@ -39,5 +39,5 @@ app.use('/api/signup',imageRouter);
 app.use('/api/images',authMiddleware,imageRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server running on prot ${3000}`);
+  console.log(`Server running on port ${PORT}`);
 });
