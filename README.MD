@@ -83,6 +83,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - TagsManagement (tags management)
         - Tags (tagging of an image)
         - Comments (display/edit comments timeline)
+        - Status (on the Navbar, area for api call status code)
 
 
 # Api categories
@@ -125,10 +126,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 # format of API return call ?
 ex: POST response
 { 
-    resultLessage: "success|failure" => MANDATORY
-    resultCode: 1 (success) | 0 (failure) => MANDATORY
-    data: json object in response => OPTIONAL
+    **resultMessage**: String: "success|failure" => MANDATORY
+    **resultCode**: Number: 1 (success) | 0 (failure) => MANDATORY
+    **data**: Object (json) => OPTIONAL, the actual api call response (ex: list of tags)
  }
-
-
-## 
