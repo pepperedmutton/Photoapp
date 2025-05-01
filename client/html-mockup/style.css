@@ -56,7 +56,7 @@ a {
   justify-content: center;
   align-items: center;
   background: url('cameraBanner.jpg') no-repeat center center/cover;
-  background-attachment: fixed; /* Important for Parallax */
+  background-attachment: fixed; 
   color: white;
   overflow: hidden;
 }
