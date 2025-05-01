@@ -102,6 +102,12 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - DELETE: logoff
         - PUT/GET: not supported
 
+    - /api/signup
+        - POST: {email, name, password (clear)}
+            possible response: 
+                - resultcode = 0: failure, and message will explain (like already registered)
+                - resultcode = 1: creation ok
+
     - /api/tags: 
         - GET: "/:search_term" used by autocmplete. 
             - the group camera & lenses are provided for all users 
