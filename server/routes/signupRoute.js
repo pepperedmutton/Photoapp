@@ -1,10 +1,10 @@
 import express from 'express';
-import knex from './server/knex.js';
+import knex from '../knex.js'; 
 import bcrypt from 'bcrypt';
 
 const signupRouter = express.Router();
 
-signupRouter.post('/api/signup', async (req, res) => {
+signupRouter.post('/', async (req, res) => {
   const { email, name, password } = req.body;
 
   if (!email || !name || !password) {

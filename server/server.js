@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import imageRouter from './routes/photoRoutes.js'
+import  signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -15,8 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
 
-
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.post("/api/login",async (req,res)=>{
     let{email,password} = req.body;
@@ -35,9 +35,9 @@ app.post("/api/login",async (req,res)=>{
       }
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 })
-app.use('/api/signup',imageRouter);
+app.use('/api/signup',signupRouter);
 app.use('/api/images',authMiddleware,imageRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server running on prot ${3000}`);
+  console.log(`Server running on port ${PORT}`);
 });
