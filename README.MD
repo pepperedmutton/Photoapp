@@ -125,6 +125,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
 # format of API return call ?
 ex: POST response
+
 ```
 { 
     **resultMessage**: String: "success|failure" => MANDATORY
