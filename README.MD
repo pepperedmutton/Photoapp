@@ -88,14 +88,14 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
 # Api categories
     - /api/gallery 
-    All request made to gallery deals with all or many images at the same time  
+    **All request made to gallery deals with all or many images at the same time**  
     - /api/image/
         - GET: get an image and all it's metadata (tags, ...)  
         This method shall provide a query parameter called id to specify which image to return  
     - /api/image/tag
         - DELETE: remove a tag from an image
         - PUT: add a new tag to an image
-    All request made to api/image should contain a query parameter called id to identify the specific image intended  
+    **All request made to api/image should contain a query parameter called id to identify the specific image intended**  
     - /api/upload
     - /api/search
 
