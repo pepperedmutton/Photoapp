@@ -107,6 +107,19 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
         - DELETE: "/:image_id" delete a post
         - PUT: "/:image_id" updat a post
 
+    - **/api/gallery**  
+         For retrieving the user's photo gallery (list of images, possibly with filters/search).
+
+    - **/api/image**  
+         For retrieving, updating, or deleting a single image and its metadata.
+
+    - **/api/upload**  
+         For uploading new images to the server.
+
+    - **/api/search**  
+         For searching images by tags, metadata, or other criteria.
+
+
 # format of API return call ?
 ex: POST response
 { 

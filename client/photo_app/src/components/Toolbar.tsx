@@ -1,26 +1,47 @@
 import React from 'react';
 
-interface Shortcut {
-  label: string;
-  action: () => void;
-}
-
 interface ToolbarProps {
-  onSearch: (query: string) => void;
-  shortcuts: Shortcut[];
+  onSortChange: (sortBy: string) => void;
+  onFilterChange: (filter: string) => void;
+  onToggleDarkMode: () => void;
+  currentSort: string;
+  currentFilter: string;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ onSearch, shortcuts }) => (
-  <div className="toolbar">
-    <input
-      type="text"
-      placeholder="Search..."
-      onChange={e => onSearch(e.target.value)}
-    />
-    {shortcuts.map(sc => (
-      <button key={sc.label} onClick={sc.action}>{sc.label}</button>
-    ))}
-  </div>
-);
+const Toolbar: React.FC<ToolbarProps> = ({
+  onSortChange,
+  onFilterChange,
+  onToggleDarkMode,
+  currentSort,
+  currentFilter,
+}) => {
+  return (
+    <div className="toolbar">
+      <div className="sort-filter-group">
+        <select
+          value={currentSort}
+          onChange={(e) => onSortChange(e.target.value)}
+          className="input-field"
+        >
+          <option value="date">Sort by Date</option>
+          <option value="name">Sort by Name</option>
+          <option value="camera">Sort by Camera</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Filter by tag or camera..."
+          value={currentFilter}
+          onChange={(e) => onFilterChange(e.target.value)}
+          className="input-field"
+        />
+      </div>
+
+      <button className="button" onClick={onToggleDarkMode}>
+        🌙 Toggle Dark Mode
+      </button>
+    </div>
+  );
+};
 
 export default Toolbar;
