@@ -1,11 +1,20 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
 
 function App() {
+  
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem('darkMode');
+    return stored ? JSON.parse(stored) : false;
+  });
   const [currentSort, setCurrentSort] = useState('date');
   const [currentFilter, setCurrentFilter] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
+
+  
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const handleSortChange = (sortBy: string) => {
     setCurrentSort(sortBy);
@@ -71,12 +80,20 @@ function App() {
             <p>Share your favorite shots with the community.</p>
           </div>
           <div className="feature">
-            <h3>🔍 Smart Filters</h3>
-            <p>Find photos by tags, camera, or date instantly.</p>
+            <h3>🔍 Manage Gallery</h3>
+            <p>Edit, update, or delete your uploads.</p>
           </div>
           <div className="feature">
-            <h3>🌙 Dark Mode</h3>
-            <p>Switch between light and dark themes for comfort.</p>
+            <h3>View & Sort Photos</h3>
+            <p>Dynamic gallery with filters and sorting.</p>
+          </div>
+          <div className="feature">
+            <h3>Device Library</h3>
+            <p>Explore and link devices to your photos.</p>
+          </div>
+          <div className="feature">
+            <h3>Comment Section</h3>
+            <p>Discuss and share feedback on photos.</p>
           </div>
         </div>
       </section>
@@ -134,6 +151,10 @@ function App() {
           <li>Responsive design for all devices</li>
           <li>Accessible color contrast</li>
           <li>Fast and intuitive navigation</li>
+          <li>Home Screen: Logo + Navigation Menu (Gallery, Upload, My Photos, Devices)</li>
+          <li>Gallery Page: Thumbnails grid, Filter and Sort control</li>
+          <li>Upload Screen: Image selector, Text inputs for metadata, Submit button</li>
+          <li>Picture Detail: Full image, Metadata, Comment section, Delete button</li>
         </ul>
       </section>
 
@@ -149,13 +170,15 @@ function App() {
             <a href="#prototype">Prototype</a>
           </div>
           <div className="footer-social">
-            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">X</a>
             <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https'//youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="mailto:info@procamshare.com">Contact</a>
           </div>
         </div>
         <div className="footer-bottom">
-          &copy; {new Date().getFullYear()} ProCamShare. All rights reserved.
+          &copy; {new Date().getFullYear()} Made with ❤️ for photographers. ProCamShare. All rights reserved.
         </div>
       </footer>
     </div>
