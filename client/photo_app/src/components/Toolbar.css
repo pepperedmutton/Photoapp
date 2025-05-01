@@ -1,0 +1,34 @@
+/* .toolbar-logo {
+    display: float;
+} */
+
+.toolbar-top {
+    /* display: flex;
+    justify-content: space-between;
+    height: 1.5em; */
+    display: none;
+}
+
+.toolbar-sort {
+    width: 200px;
+}
+
+.toolbar-filter {
+    width: 200px;
+}
+
+.toolbar-middle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbar-bottom {
+    display: block;
+}
+
+.light-mode-btn {
+    display: inline;
+    margin-left: auto;
+    margin-top: 4px;
+    margin-right: 4px;
+}

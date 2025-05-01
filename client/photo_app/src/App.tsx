@@ -1,11 +1,14 @@
 import './App.css';
 import { useState } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
+import Toolbar from './components/Toolbar';
 
 function App() {
   const [currentSort, setCurrentSort] = useState('date');
   const [currentFilter, setCurrentFilter] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [loginToken, setLoginToken] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleSortChange = (sortBy: string) => {
     setCurrentSort(sortBy);
@@ -16,36 +19,21 @@ function App() {
   const handleToggleDarkMode = () => setDarkMode((prev) => !prev);
 
   return (
-    <div className={darkMode ? 'darkmode' : 'light-mode'}>
+    <div className={darkMode ? 'dark' : 'light'}>
       {/* Navbar */}
       <header>
         <nav className="navbar">
-          <div className="navbar-left">
-            <span className="navbar-logo">📷 ProCamShare</span>
-            <select
-              value={currentSort}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="navbar-select"
-            >
-              <option value="date">Sort by Date</option>
-              <option value="name">Sort by Name</option>
-              <option value="camera">Sort by Camera</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Filter by tag or camera..."
-              value={currentFilter}
-              onChange={(e) => handleFilterChange(e.target.value)}
-              className="navbar-input"
-            />
-          </div>
-          <div className="navbar-right">
-            <button className="navbar-btn" onClick={handleToggleDarkMode}>
-              🌙
-            </button>
-            <button className="navbar-btn">Upload</button>
-            <button className="navbar-btn">Login</button>
-          </div>
+          <Toolbar
+            setStatusMessage={setStatusMessage}
+            setLoginToken={setLoginToken}
+            statusMessage={statusMessage}
+            handleToggleDarkMode={handleToggleDarkMode}
+            handleSortChange={handleSortChange}
+            handleFilterChange={handleFilterChange}
+            currentSort={currentSort}
+            currentFilter={currentFilter}
+            loginToken={loginToken}
+          />
         </nav>
       </header>
 

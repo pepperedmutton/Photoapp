@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import './Login.css'
 
 interface LoginProps {
   setStatusMessage: (message: string) => void;
   setLoginToken: (token: string) => void;
+  loginToken: string;
 }
 
-const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
+const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken, loginToken }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSignup, setIsSignup] = useState(false);
@@ -61,14 +63,14 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
   };
 
   return (
-    <div className="auth-form">
+    <div className={ loginToken.length > 0 ? "hidden" : "auth-form" }>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="input-field"
+          className="navbar-input"
           required
         />
         <input
@@ -76,28 +78,22 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="input-field"
+          className="navbar-input"
           required
         />
-        <button type="submit" className="button">
+        <button type="submit" className="navbar-btn">
           {isSignup ? 'Create Account' : 'Log In'}
         </button>
       </form>
-      <p style={{ marginTop: '1rem' }}>
-        {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '}
+      {/* <div> */}
+        {/* {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '} */}
         <button
-          onClick={() => setIsSignup(!isSignup)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#0077cc',
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
+            className="button-signup"
+            onClick={() => setIsSignup(!isSignup)}
         >
-          {isSignup ? 'Log in here' : 'Sign up here'}
+        {isSignup ? 'Log in instead' : 'No account ? click to sign up'}
         </button>
-      </p>
+        {/* </div> */}
     </div>
   );
 };
