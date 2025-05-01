@@ -5,7 +5,7 @@ import knex from 'knex';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import jwt from 'jsonwebtoken';
-
+import imageRouter from './routes/photoRoutes.js'
 import authMiddleware from './middleWare/auth.js'
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -36,7 +36,7 @@ app.post("/api/login",async (req,res)=>{
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 }
     )
-    
+    app.use('/api/photos',authMiddleware,imageRouter);
 app.listen(PORT, () => {
   console.log(`Server running on prot ${3000}`);
 });
