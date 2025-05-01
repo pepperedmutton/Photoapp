@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import knex from './server/knex.js'; 
+import knex from '../knex.js'; 
 import { readFile } from 'fs/promises';
 import express from 'express';
 import exif from 'exif-parser';
