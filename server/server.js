@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import knex from 'knex.js';
+import knex from './knex.js';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import jwt from 'jsonwebtoken';
@@ -35,8 +35,8 @@ app.post("/api/login",async (req,res)=>{
       }
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 })
-
-app.use('/api/photos',authMiddleware,imageRouter);
+app.use('/api/signup',imageRouter);
+app.use('/api/images',authMiddleware,imageRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on prot ${3000}`);

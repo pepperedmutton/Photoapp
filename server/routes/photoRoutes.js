@@ -7,7 +7,7 @@ import express from 'express';
 import exif from 'exif-parser';
 const imageRouter = express.Router();
 // Define routes
-imageRouter.get('/api/image', async (req, res) => {
+imageRouter.get('/', async (req, res) => {
   const id = Number(req.query.id)
   const filename = await knex('photos')
   .where({ id: id })
@@ -24,7 +24,7 @@ imageRouter.get('/api/image', async (req, res) => {
   })
 });
 
-imageRouter.post('/api/image', async (req, res) => {
+imageRouter.post('/', async (req, res) => {
   const data = req.body.img;
   const base64Data = data.includes('base64,')
   ? data.split(',')[1]
