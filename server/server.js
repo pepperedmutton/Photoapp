@@ -16,7 +16,6 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
 
-
 const PORT = 3000;
 
 app.post("/api/login",async (req,res)=>{
@@ -36,8 +35,8 @@ app.post("/api/login",async (req,res)=>{
       }
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 })
-app.use('/api/signup',imageRouter);
-app.use('/api/images',authMiddleware,signupRouter);
+app.use('/api/signup',signupRouter);
+app.use('/api/images',authMiddleware,imageRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
