@@ -95,7 +95,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     - /api/image/tag
         - DELETE: remove a tag from an image
         - PUT: add a new tag to an image
-    **All request made to api/image should contain a query parameter called id to identify the specific image intended**  
+    **All request made to api/image should contain a query parameter called id(numeric) to identify the specific image intended**  
     - /api/upload
     - /api/search
 
