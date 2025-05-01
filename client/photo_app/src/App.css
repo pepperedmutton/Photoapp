@@ -13,8 +13,8 @@ a {
   color: inherit;
 }
 
-/* Navbar */
-.toolbar {
+
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,13 +26,13 @@ a {
   z-index: 1000;
 }
 
-.toolbar .logo {
+.navbar .logo {
   font-weight: 700;
   font-size: 1.5rem;
   color: #0077cc;
 }
 
-.toolbar nav a, .toolbar nav button {
+.navbar nav a, .navbar nav button {
   margin-left: 1rem;
   font-weight: 500;
   background: none;
@@ -41,11 +41,11 @@ a {
   font-size: 1rem;
 }
 
-.toolbar nav a:hover, .toolbar nav button:hover {
+.navbar nav a:hover, .navbar nav button:hover {
   color: #0077cc;
 }
 
-/* Hero Section */
+
 .hero {
   position: relative;
   text-align: center;
