@@ -1,18 +1,10 @@
 import { useState } from 'react';
-import { APIResult } from '../types';
 
-type loginProps = { 
-    setStatus: React.Dispatch<React.SetStateAction<APIResult>>
-}
-
-export function Login(
-    { setStatus }: loginProps
-    // props: { setStatus: React.Dispatch<React.SetStateAction<APIResult>> }
-) {
+export function Signup() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [displayName, setDisplayName] = useState("");
 
-    const login = (formPayload: { get: (arg0: string) => any; }) => {
+    const login = (formPayload) => {
         const username = formPayload.get("username");
         const password = formPayload.get("password");
 
@@ -20,7 +12,6 @@ export function Login(
         if (password === "toctoc") {
             setIsLoggedIn(true);
             setDisplayName("frédéric b.");
-            setStatus({code: 1, message: "logged in"});
         }
     }
 
