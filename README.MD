@@ -92,6 +92,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
     - /api/image/
         - GET: get an image and all it's metadata (tags, ...)  
         This method shall provide a query parameter called id to specify which image to return  
+        - POST:post an image with tags,
     - /api/image/tag
         - DELETE: remove a tag from an image
         - PUT: add a new tag to an image
@@ -139,8 +140,8 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
          For searching images by tags, metadata, or other criteria.
 
 
-# format of API return call ?
-ex: POST response
+# format of API return call 
+
 
 ```
 { 
@@ -148,4 +149,20 @@ ex: POST response
     **resultCode**: Number: 1 (success) | 0 (failure) => MANDATORY
     **data**: Object (json) => OPTIONAL, the actual api call response (ex: list of tags)
  }
+```
+
+# format of post requesty header with JWT  
+```
+const token = localStorage.getItem('token');  
+
+await fetch('/api/image', {  
+  method: 'POST',  
+  headers: {  
+    'Content-Type': 'application/json',  
+    'Authorization': `Bearer ${token}`    
+  },  
+  body: JSON.stringify({  
+    img:data  
+  })  
+});  
 ```

@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
 export default function authMiddleware(req, res, next) {
