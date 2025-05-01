@@ -123,6 +123,11 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
     - /api/comments
         - GET: "/:image_id" get a list of all comments, with those one editable by the current user (extrapolate from session cookie)
+        - Post body format
+         {  
+          user:email  
+          content  
+          }
         - POST: "/:image_id" add a new comment
         - DELETE: "/:image_id" delete a post
         - PUT: "/:image_id" updat a post
