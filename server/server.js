@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import knex from 'knex';
+import knex from 'knex.js';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import jwt from 'jsonwebtoken';
@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
 
 
 const PORT = process.env.PORT || 3000;
+
 app.post("/api/login",async (req,res)=>{
     let{email,password} = req.body;
     const user = await knex('users').where({ email }).first();
@@ -27,16 +28,16 @@ app.post("/api/login",async (req,res)=>{
     if(isMatch){
     const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
     return res.json({
-        success: true,
-        message: 'Login successful',
-        token,
-        user
-      });
+      resultMessage: 'success',
+      resultCode: 1,
+      token
+    });
       }
     res.status(401).json({ success: false, message: 'Invalid credentials' });
-}
-    )
-    app.use('/api/photos',authMiddleware,imageRouter);
+})
+
+app.use('/api/photos',authMiddleware,imageRouter);
+
 app.listen(PORT, () => {
   console.log(`Server running on prot ${3000}`);
 });
