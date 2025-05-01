@@ -130,6 +130,12 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
           }
         - POST: "/:image_id" add a new comment
         - DELETE: "/:image_id" delete a post
+        - when deleting a post, use the entire comment object as req.body,which looks like  
+        {  
+        user  
+        comment  
+        timeStamp  
+        }  
         - PUT: "/:image_id" updat a post
 
     - **/api/gallery**  
