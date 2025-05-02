@@ -8,11 +8,16 @@ import jwt from 'jsonwebtoken';
 import imageRouter from './routes/photoRoutes.js'
 import signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
+import dotenv from 'dotenv';
 import commentRouter from './routes/commentRouter.js';
+dotenv.config({ path: '../.env' });
+const JWT_SECRET = process.env.JWT_SECRET;
+console.log(JWT_SECRET);
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const JWT_SECRET = process.env.JWT_KEY || "supersecret";
+
+
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
@@ -21,6 +26,7 @@ const PORT = 3000;
 
 app.post("/api/login",async (req,res)=>{
     let{email,password} = req.body;
+    console.log(req.body);
     const user = await knex('users').where({ email }).first();
     if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
@@ -39,6 +45,7 @@ app.post("/api/login",async (req,res)=>{
 })
 app.use('/api/signup',signupRouter);
 app.use('/api/image',authMiddleware,imageRouter);
+app.use('/api/images',authMiddleware,imageRouter);
 app.use('/api/comments',authMiddleware,commentRouter)
 app.use('/api/gallery',authMiddleware,commentRouter)
 app.listen(PORT, () => {
