@@ -8,6 +8,7 @@ import exif from 'exif-parser';
 const imageRouter = express.Router();
 // Define routes
 imageRouter.get('/', async (req, res) => {
+  //A router that return all photo that exist in data
   const id = Number(req.query.id)
   const filename = await knex('photos')
   .where({ id: id })

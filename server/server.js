@@ -8,11 +8,16 @@ import jwt from 'jsonwebtoken';
 import imageRouter from './routes/photoRoutes.js'
 import signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
+import dotenv from 'dotenv';
 import commentRouter from './routes/commentRouter.js';
+dotenv.config({ path: '../.env' });
+const JWT_SECRET = process.env.JWT_SECRET;
+console.log(JWT_SECRET);
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const JWT_SECRET = process.env.JWT_KEY || "supersecret";
+
+
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/photo_app/dist')));
