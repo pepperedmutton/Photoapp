@@ -10,6 +10,8 @@ import signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
 import dotenv from 'dotenv';
 import commentRouter from './routes/commentRouter.js';
+import galleryRouter from './routes/galleryRouter.js';
+import searchRouter from './routes/searchRouter.js';
 dotenv.config({ path: '../.env' });
 const JWT_SECRET = process.env.JWT_SECRET;
 console.log(JWT_SECRET);
@@ -47,7 +49,8 @@ app.use('/api/signup',signupRouter);
 app.use('/api/image',authMiddleware,imageRouter);
 app.use('/api/images',authMiddleware,imageRouter);
 app.use('/api/comments',authMiddleware,commentRouter)
-app.use('/api/gallery',authMiddleware,commentRouter)
+app.use('/api/gallery',authMiddleware,galleryRouter)
+app.use('/api/search',authMiddleware,searchRouter)
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -26,7 +26,6 @@ imageRouter.get('/', async (req, res) => {
 });
 
 imageRouter.post('/', async (req, res) => {
-  console.log("hit");
   const data = req.body.img;
   const base64Data = data.includes('base64,')
   ? data.split(',')[1]
@@ -65,8 +64,20 @@ imageRouter.post('/', async (req, res) => {
     name:element
   }});
   const photo_id = knex("photos").select("id").where(filename)[0].id;
-  await knex("tags").insert(tags);
+  await knex("tags").insert(tags).onConflict('name').ignore();
   }
+  tags = tags.map(element=>(element.name));
+  tags = tags.map((async element=>{
+    let id = await knex('tags').select('id').where({name:element})
+    return id;
+  }));
+  tags_photos = tags.map(tag_id=>{
+    {
+      photo_id
+      tag_id
+    }
+  });
+  await knex("photos_tags").insert(tags_photos);
   res.json({
     resultMessage: 'success',
     resultCode: 1,
