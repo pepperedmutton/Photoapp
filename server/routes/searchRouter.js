@@ -12,8 +12,8 @@ const dataDir = path.join(process.cwd(), 'data');
 const searchRouter = express.Router();
 //Gallery returns all photos uploaded by a user
 //returns an array of objects,each one consists of 
-searchRouter.get('/', async (req, res) => {
-  const queryTags = req.tag;
+searchRouter.post('/', async (req, res) => {
+  const queryTags = req.body.tag;
   const photos = await knex('photos').select('*');
   let foundPhotos = [];
   for(photo in photos){
