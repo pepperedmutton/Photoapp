@@ -6,7 +6,12 @@
     /* display: flex;
     justify-content: space-between;
     height: 1.5em; */
-    display: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color:#0077cc;
+
 }
 
 .toolbar-sort {
@@ -25,10 +30,10 @@
 .toolbar-bottom {
     display: block;
 }
-
-.light-mode-btn {
+.dark-mode-btn {
+    color: black;
     display: inline;
     margin-left: auto;
     margin-top: 4px;
     margin-right: 4px;
-}
+}   
