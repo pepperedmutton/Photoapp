@@ -1,0 +1,112 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header, footer {
+    background: white;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .home-link {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: white;
+    color: #0077cc;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .home-link:hover {
+    background: #005fa3;
+    color: white;
+  }
+
+  .feature-detail {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInMoveUp 0.8s ease forwards;
+    text-align: center;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .input-field {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #0077cc;
+    box-shadow: 0 0 8px rgba(0, 119, 204, 0.5);
+  }
+
+  .button-delete {
+    margin-top: 1rem;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .button-delete:hover {
+    background: #cc0000;
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeInMoveUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

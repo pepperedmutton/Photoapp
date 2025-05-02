@@ -42,7 +42,6 @@ a {
   z-index: 1;
 }
 
-
 .hero h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
@@ -120,6 +119,7 @@ footer {
   font-size: 0.9rem;
   color: #777;
 }
+
 
 /* Animations */
 @keyframes fadeInUp {
@@ -427,4 +427,5 @@ body.dark .button-delete:hover {
   color: #bbb;
   margin-top: 1rem;
 }
+
 
