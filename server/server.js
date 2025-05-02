@@ -28,6 +28,7 @@ app.post("/api/login",async (req,res)=>{
     const isMatch = await bcrypt.compare(password, user.password);
     if(isMatch){
     const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
+    await knex('users').where({email:email}).update({token:token});
     return res.json({
       resultMessage: 'success',
       resultCode: 1,
@@ -37,9 +38,9 @@ app.post("/api/login",async (req,res)=>{
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 })
 app.use('/api/signup',signupRouter);
-app.use('/api/images',authMiddleware,imageRouter);
+app.use('/api/image',authMiddleware,imageRouter);
 app.use('/api/comments',authMiddleware,commentRouter)
-
+app.use('/api/gallery',authMiddleware,commentRouter)
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
