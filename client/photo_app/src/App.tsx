@@ -4,6 +4,8 @@ import cameraBanner from './assets/cameraBanner.jpg';
 import Toolbar from './components/Toolbar';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import UploadPhoto from './components/Upload';
+import Persona from './components/Persona';
+
 
 function HomePage(props: {
   currentSort: string;
@@ -39,7 +41,7 @@ function HomePage(props: {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero" style={{ backgroundImage: `url(${cameraBanner})` }}>
         <div className="hero-content">
           <img src={cameraBanner} alt="Camera" className="hero-image" />
           <h1>Welcome to ProCamShare</h1>
@@ -75,6 +77,10 @@ function HomePage(props: {
           <div className="feature">
             <h3>Comment Section</h3>
             <p>Discuss and share feedback on photos.</p>
+          </div>
+          <div className="feature" onClick={() => navigate('/persona')} style={{ cursor: 'pointer' }}>
+            <h3>Persona User</h3>
+            <p>Example of persona user.</p>
           </div>
         </div>
       </section>
@@ -202,6 +208,7 @@ function App() {
           }
         />
         <Route path="/upload" element={<UploadPhoto />} />
+        <Route path="/persona" element={<Persona />} />
       </Routes>
     </Router>
   );
