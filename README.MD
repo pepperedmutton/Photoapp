@@ -157,6 +157,7 @@ The photo app The app shall allow users to upload photos, to search uploaded pho
 
     - **/api/search**  
          For searching images by tags, metadata, or other criteria.
+        -Implemented. Now it expects a req.body.tag which is an array of tags to be searched, and return result as an array of image id called foundPhotos  
 
 
 # format of API return call 
