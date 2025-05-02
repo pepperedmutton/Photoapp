@@ -66,7 +66,7 @@ const UploadPhoto: React.FC = () => {
     try {
       // If you use authentication, get your token here (e.g. from localStorage or context)
       // const token = localStorage.getItem('token');
-      const res = await fetch('/api/photos/upload', {
+      const res = await fetch('/api/images', {
         method: 'POST',
         // headers: { Authorization: `Bearer ${token}` }, // Uncomment and set token if needed
         body: formData,
