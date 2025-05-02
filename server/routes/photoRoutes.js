@@ -26,6 +26,7 @@ imageRouter.get('/', async (req, res) => {
 });
 
 imageRouter.post('/', async (req, res) => {
+  console.log("hit");
   const data = req.body.img;
   const base64Data = data.includes('base64,')
   ? data.split(',')[1]
@@ -42,7 +43,11 @@ imageRouter.post('/', async (req, res) => {
   //read token,find user,add to metadata,push to table
   const authHeader = req.headers.authorization;
   const token = authHeader.split(' ')[1];
-  const user_id = await knex('users').select('id').where({token:token});
+  const user = await knex('users').select('id').where({ token }).first();
+  if (!user) {
+  return res.status(401).json({ message: 'Invalid token' });
+  }
+  const user_id = user.id;
   await knex('photos').insert({
     filename,
     camera_make: tags.Make || null,

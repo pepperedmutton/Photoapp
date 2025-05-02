@@ -18,7 +18,7 @@ export default function authMiddleware(req, res, next) {
   }
 
   const token = authHeader;
-  console.log(token);
+
 
     //  Verify token — throws error if invalid/expired
     const decoded = jwt.verify(token,JWT_SECRET);

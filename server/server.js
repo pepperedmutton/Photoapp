@@ -44,6 +44,7 @@ app.post("/api/login",async (req,res)=>{
 })
 app.use('/api/signup',signupRouter);
 app.use('/api/image',authMiddleware,imageRouter);
+app.use('/api/images',authMiddleware,imageRouter);
 app.use('/api/comments',authMiddleware,commentRouter)
 app.use('/api/gallery',authMiddleware,commentRouter)
 app.listen(PORT, () => {
