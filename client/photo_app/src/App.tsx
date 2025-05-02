@@ -12,10 +12,10 @@ import Comment from './components/Comment';
 const samplePhotos = [
   {
     id: 1,
-    url: 'https://placehold.co/400x300?text=Photo+1',
+    url: "./Canon XF605.jpg",
     metadata: {
-      name: 'Sunset',
-      camera: 'Canon EOS R5',
+      name: 'Canon XF605',
+      camera: 'Canon XF 605',
       lens: 'RF24-70mm',
       iso: '100',
       shutter: '1/200s',
@@ -24,9 +24,9 @@ const samplePhotos = [
   },
   {
     id: 2,
-    url: 'https://placehold.co/400x300?text=Photo+2',
+    url: "./Nikon.jpg",
     metadata: {
-      name: 'Mountains',
+      name: 'Nikon',
       camera: 'Nikon Z7',
       lens: '24-70mm',
       iso: '200',
@@ -156,7 +156,7 @@ function HomePage(props: {
           <div className="feature">
             <h3>Comment Section</h3>
             <p>Discuss and share feedback on photos.</p>
-            {/* Comment Section acts as a button */}
+            
             <Comment
               photoId={1}
               comments={props.comments.filter(c => c.photoId === 1)}
