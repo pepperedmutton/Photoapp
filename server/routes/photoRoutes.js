@@ -29,17 +29,19 @@ imageRouter.post('/', async (req, res) => {
   const base64Data = data.includes('base64,')
   ? data.split(',')[1]
   : data;
-
+  
   const buffer = Buffer.from(base64Data, 'base64');
-
+  //parse the image to base 64, assgin unique name, and save in /data
   const parser = exif.create(buffer);
   const result = parser.parse();
   const tags = result.tags || {};
-
   const filename = `${uuidv4()}.jpg`;
   const filePath = path.resolve('data', filename);
   await fs.writeFile(filePath, buffer);
-
+  //read token,find user,add to metadata,push to table
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1];
+  const user_id = await knex('users').select('id').where({token:token});
   await knex('photos').insert({
     filename,
     camera_make: tags.Make || null,
@@ -49,6 +51,7 @@ imageRouter.post('/', async (req, res) => {
     gps_lng: tags.GPSLongitude || null,
     aperture:tags.FNumber || null,
     exposure_time: tags.ExposureTime || null,
+    user_id:user_id
  });
   res.json({
     resultMessage: 'success',
