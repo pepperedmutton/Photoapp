@@ -1,47 +1,58 @@
-
 import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import knex from '../knex.js'; 
-import { readFile } from 'fs/promises';
+import knex from '../knex.js';
 import express from 'express';
-import exif from 'exif-parser';
-
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
-const dataDir = path.join(process.cwd(), 'data');
-const searchRouter = express.Router();
-//Gallery returns all photos uploaded by a user
-//returns an array of objects,each one consists of 
-searchRouter.post('/', async (req, res) => {
-  const queryTags = req.body.tag;
-  const photos = await knex('photos').select('*');
-  let foundPhotos = [];
-  for(photo in photos){
-    const tags = await knex('photos_tags')
-    .select('tag_id')
-    .where({'photo_id':photo.id});
-    tags = tags.map(tag=>tag.tag_id);
-    tags = await Promise.all(tags.map(async tag_id=>{
-        let tag = await knex('tags')
-        .select('name')
-        .where({id:tag_id})
-        return tag;
-    }))
-  }
-  photo.id = undefined;
-  const searchable = Object.values(photo);
-  searchable = [... tags];
-  if (queryTags.every(tag=>searchable.includes(tag))){
-    foundPhotos.push(photo.id)
-  }
-  res.json(
-    {
-    resultMessage:"success",
-    resultCode:1,
-    foundPhotos
-    }
-  )
-});
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dataDir = path.resolve(__dirname, '../../data');
+
+const searchRouter = express.Router();
+
+searchRouter.post('/', async (req, res) => {
+  try {
+    const queryTags = req.body.tag; // expects array of tag names
+    if (!Array.isArray(queryTags)) {
+      return res.status(400).json({ message: 'Tags must be an array' });
+    }
+
+    const photos = await knex('photos').select('*');
+    const foundPhotos = [];
+
+    for (const photo of photos) {
+      const photoTagIds = await knex('photos_tags')
+        .select('tag_id')
+        .where({ photo_id: photo.id });
+
+      const tagIds = photoTagIds.map(tag => tag.tag_id);
+
+      const tagNameRows = await Promise.all(tagIds.map(async tag_id => {
+        const tag = await knex('tags').select('name').where({ id: tag_id }).first();
+        return tag?.name?.toLowerCase() || '';
+      }));
+
+      const searchable = [
+        ...Object.values({ ...photo, id: undefined }).map(v => String(v).toLowerCase()),
+        ...tagNameRows
+      ];
+
+      const allMatch = queryTags.every(tag => searchable.includes(tag.toLowerCase()));
+      if (allMatch) {
+        foundPhotos.push(photo.id);
+      }
+    }
+
+    res.json({
+      resultMessage: 'success',
+      resultCode: 1,
+      foundPhotos
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Search failed' });
+  }
+});
 
 export default searchRouter;
