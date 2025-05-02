@@ -31,7 +31,6 @@ imageRouter.post('/', async (req, res) => {
   const base64Data = data.includes('base64,')
   ? data.split(',')[1]
   : data;
-  
   const buffer = Buffer.from(base64Data, 'base64');
   //parse the image to base 64, assgin unique name, and save in /data
   const parser = exif.create(buffer);
@@ -59,6 +58,15 @@ imageRouter.post('/', async (req, res) => {
     exposure_time: tags.ExposureTime || null,
     user_id:user_id
  });
+ //redirect tags to descrptive tags added upon upload
+  if(req.tag){
+  tags = req.tag;
+  tags = tags.map(element =>{return{
+    name:element
+  }});
+  const photo_id = knex("photos").select("id").where(filename)[0].id;
+  await knex("tags").insert(tags);
+  }
   res.json({
     resultMessage: 'success',
     resultCode: 1,
