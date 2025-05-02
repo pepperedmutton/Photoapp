@@ -10,7 +10,7 @@ import signupRouter from './routes/signupRoute.js'
 import authMiddleware from './middleWare/auth.js'
 import dotenv from 'dotenv';
 import commentRouter from './routes/commentRouter.js';
-dotenv.config({ path: '.env' });
+dotenv.config({ path: '../.env' });
 const JWT_SECRET = process.env.JWT_SECRET;
 console.log(JWT_SECRET);
 const app = express();
