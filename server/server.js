@@ -38,7 +38,7 @@ app.post("/api/login",async (req,res)=>{
     res.status(401).json({ success: false, message: 'Invalid credentials' });
 })
 app.use('/api/signup',signupRouter);
-app.use('/api/images',authMiddleware,imageRouter);
+app.use('/api/image',authMiddleware,imageRouter);
 app.use('/api/comments',authMiddleware,commentRouter)
 app.use('/api/gallery',authMiddleware,commentRouter)
 app.listen(PORT, () => {
