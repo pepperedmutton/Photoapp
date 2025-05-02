@@ -347,7 +347,7 @@ body.dark .button-delete:hover {
     linear-gradient(#000 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
-  padding: 5px; /*border thickness/*/
+  padding: 3px; /*border thickness/*/
   box-sizing: border-box;
 }
 
