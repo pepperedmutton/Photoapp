@@ -42,7 +42,7 @@ const initialComments = [
     id: 1,
     photoId: 1,
     author: 'Alice',
-    text: 'Beautiful shot!',
+    text: 'Beautiful fail!',
     timestamp: new Date().toISOString(),
   },
   {

@@ -58,7 +58,7 @@ imageRouter.post('/', async (req, res) => {
     exposure_time: tags.ExposureTime || null,
     user_id:user_id
  });
- //redirect tags to descrptive tags added upon upload
+ //redirect tags to descriptive tags added upon upload
   if(req.tag){
   tags = req.tag;
   tags = tags.map(element =>{return{

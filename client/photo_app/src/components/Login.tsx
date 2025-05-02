@@ -14,7 +14,7 @@ const Login: React.FC<LoginProps> = ({ setStatusMessage, setLoginToken, loginTok
 
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setStatusMessage("arghhh");
+    setStatusMessage("aaaaaaaaarghhh");
 
     e.preventDefault();
     if (isSignup) {
