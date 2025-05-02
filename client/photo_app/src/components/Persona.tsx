@@ -1,48 +1,101 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import './Persona.css';
 
-const personaStyles: React.CSSProperties = {
-  maxWidth: '600px',
-  margin: '40px auto',
-  background: '#fff',
-  borderRadius: '12px',
-  boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-  padding: '2rem',
-  textAlign: 'center',
+const personas = [
+  {
+    img: '/Lisa.jpg',
+    alt: 'Lisa',
+    name: 'Lisa the Landscape Pro',
+    details: [
+      { label: 'Age', value: '29' },
+      { label: 'Profession', value: 'Full-time Landscape Photographer' },
+      { label: 'Location', value: 'Vancouver, Canada' },
+      { label: 'Goals', value: 'Showcase portfolio, share metadata, engage with community.' },
+      { label: 'Frustrations', value: 'Slow uploads, limited metadata support.' },
+      { label: 'Wants', value: 'Professional interface, filter by device/settings, constructive feedback.' },
+    ],
+  },
+  {
+    img: '/Raj.jpg',
+    alt: 'Raj',
+    name: 'Raj the Gear Enthusiast',
+    details: [
+      { label: 'Age', value: '34' },
+      { label: 'Profession', value: 'Software Engineer / Hobbyist Photographer' },
+      { label: 'Location', value: 'Tokyo, Japan' },
+      { label: 'Goals', value: 'Compare gear results, discuss settings, follow gear-based photographers.' },
+      { label: 'Frustrations', value: 'Lack of device tagging, no tech-specific community.' },
+      { label: 'Wants', value: 'Device library, gear discussions, smart filters.' },
+    ],
+  },
+  {
+    img: '/Emily.jpg',
+    alt: 'Emily',
+    name: 'Emily the Event Shooter',
+    details: [
+      { label: 'Age', value: '42' },
+      { label: 'Profession', value: 'Wedding & Event Photographer' },
+      { label: 'Location', value: 'Austin, USA' },
+      { label: 'Goals', value: 'Showcase work to clients, quick uploads, manage comments.' },
+      { label: 'Frustrations', value: 'Complex interfaces, photo management issues.' },
+      { label: 'Wants', value: 'Easy uploads, event organization, client-friendly viewing.' },
+    ],
+  },
+];
+
+const Persona: React.FC = () => {
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
+
+  useEffect(() => {
+    const btn = document.getElementById('toggle-dark-mode');
+    const toggle = () => {
+      document.body.classList.toggle('dark');
+    };
+    btn?.addEventListener('click', toggle);
+    return () => {
+      btn?.removeEventListener('click', toggle);
+    };
+  }, []);
+
+  return (
+    <div>
+      <header>
+        <a href="/" className="home-link">🏠 Home</a>
+        <h1>ProCamShare - User Personas</h1>
+        <button id="toggle-dark-mode" aria-label="Toggle dark mode">🌙</button>
+      </header>
+
+      <section className="container">
+        {personas.map((persona, idx) => (
+          <div className="persona" key={idx}>
+            <img src={persona.img} alt={persona.alt} />
+            <div className="persona-content">
+              <h2>{persona.name}</h2>
+              {persona.details.map((d, i) => (
+                <p key={i}>
+                  <strong>{d.label}:</strong> {d.value}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <footer>
+        <p>
+          Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis
+        </p>
+      </footer>
+    </div>
+  );
 };
-
-const imgStyles: React.CSSProperties = {
-  borderRadius: '50%',
-  marginBottom: '1rem',
-};
-
-const ulStyles: React.CSSProperties = {
-  listStyle: 'none',
-  padding: 0,
-  margin: '1rem 0',
-};
-
-const liStyles: React.CSSProperties = {
-  margin: '0.5rem 0',
-};
-
-const Persona: React.FC = () => (
-  <div style={personaStyles}>
-    <h1>Persona: Jane Doe</h1>
-    <img
-      src="https://placehold.co/200x200?text=Persona"
-      alt="Persona"
-      style={imgStyles}
-    />
-    <ul style={ulStyles}>
-      <li style={liStyles}><strong>Age:</strong> 29</li>
-      <li style={liStyles}><strong>Occupation:</strong> Hobbyist Photographer</li>
-      <li style={liStyles}><strong>Goals:</strong> Share photos, get feedback, organize gallery</li>
-      <li style={liStyles}><strong>Pain Points:</strong> Hard to find photos, wants easy upload, values privacy</li>
-    </ul>
-    <p>
-      Jane loves capturing moments on her DSLR and sharing them with friends. She wants a simple, beautiful platform to upload, sort, and discuss her photos.
-    </p>
-  </div>
-);
 
 export default Persona;

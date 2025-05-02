@@ -2,10 +2,83 @@ import './App.css';
 import { useState } from 'react';
 import cameraBanner from './assets/cameraBanner.jpg';
 import Toolbar from './components/Toolbar';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import UploadPhoto from './components/Upload';
 import Persona from './components/Persona';
+import Gallery from './components/Gallery'; 
+import Comment from './components/Comment';
 
+// Sample photo data for demonstration
+const samplePhotos = [
+  {
+    id: 1,
+    url: 'https://placehold.co/400x300?text=Photo+1',
+    metadata: {
+      name: 'Sunset',
+      camera: 'Canon EOS R5',
+      lens: 'RF24-70mm',
+      iso: '100',
+      shutter: '1/200s',
+      aperture: 'f/2.8',
+    },
+  },
+  {
+    id: 2,
+    url: 'https://placehold.co/400x300?text=Photo+2',
+    metadata: {
+      name: 'Mountains',
+      camera: 'Nikon Z7',
+      lens: '24-70mm',
+      iso: '200',
+      shutter: '1/500s',
+      aperture: 'f/4',
+    },
+  },
+];
+
+// Sample initial comments
+const initialComments = [
+  {
+    id: 1,
+    photoId: 1,
+    author: 'Alice',
+    text: 'Beautiful shot!',
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 2,
+    photoId: 2,
+    author: 'Bob',
+    text: 'Love the colors!',
+    timestamp: new Date().toISOString(),
+  },
+];
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-logo">ProCamShare</div>
+        <div className="footer-links">
+          <a href="#features">Features</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/upload">Upload</a>
+          <a href="/persona">Persona</a>
+        </div>
+        <div className="footer-social">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="mailto:support@procamshare.com">Contact</a>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        &copy; {new Date().getFullYear()} Made with ❤️ for photographers. &copy; 2025 ProCamShare / Code Chrysalis
+      </div>
+    </footer>
+  );
+}
 
 function HomePage(props: {
   currentSort: string;
@@ -18,6 +91,8 @@ function HomePage(props: {
   handleToggleDarkMode: () => void;
   handleSortChange: (sortBy: string) => void;
   handleFilterChange: (filterBy: string) => void;
+  comments: { id: number; photoId: number; author: string; text: string; timestamp: string }[];
+  onAddComment: (photoId: number, comment: { author: string; text: string }) => void;
 }) {
   const navigate = useNavigate();
 
@@ -43,7 +118,7 @@ function HomePage(props: {
       {/* Hero Section */}
       <section className="hero" style={{ backgroundImage: `url(${cameraBanner})` }}>
         <div className="hero-content">
-          <img src={cameraBanner} alt="Camera" className="hero-image" />
+          
           <h1>Welcome to ProCamShare</h1>
           <p>
             Discover, share, and manage your best photography moments.<br />
@@ -57,12 +132,15 @@ function HomePage(props: {
       <section id="features">
         <h2>Features</h2>
         <div className="features-grid">
-          <div className="feature">
+          <div
+            className="feature"
+            onClick={() => navigate('/upload')}
+            style={{ cursor: 'pointer' }}
+          >
             <h3>📸 Upload Photos</h3>
             <p>Share your favorite shots with the community.</p>
-            <button onClick={() => navigate('/upload')}>Upload Photo</button>
           </div>
-          <div className="feature">
+          <div className="feature" onClick={() => navigate('/gallery')} style={{ cursor: 'pointer' }}>
             <h3>🔍 Manage Gallery</h3>
             <p>Edit, update, or delete your uploads.</p>
           </div>
@@ -77,98 +155,40 @@ function HomePage(props: {
           <div className="feature">
             <h3>Comment Section</h3>
             <p>Discuss and share feedback on photos.</p>
+            {/* Comment Section acts as a button */}
+            <Comment
+              photoId={1}
+              comments={props.comments.filter(c => c.photoId === 1)}
+              onAddComment={props.onAddComment}
+            />
           </div>
           <div className="feature" onClick={() => navigate('/persona')} style={{ cursor: 'pointer' }}>
             <h3>Persona User</h3>
             <p>Example of persona user.</p>
+            <p> Profiles that may be interested in this type of web application.</p>
           </div>
         </div>
       </section>
-
-      {/* Flows Section */}
-      <section className="flows">
-        <h2>User Flows</h2>
-        <div className="flow-item">
-          <h3>Upload Flow</h3>
-          <ol>
-            <li>Click the Upload button in the navbar or in the features section.</li>
-            <li>Select your photo and fill in details.</li>
-            <li>Submit to share with the community.</li>
-          </ol>
-        </div>
-        <div className="flow-item">
-          <h3>Filter & Sort Flow</h3>
-          <ol>
-            <li>Use the filter input or sort dropdown in the navbar.</li>
-            <li>Instantly see results update in the gallery.</li>
-          </ol>
-        </div>
-        <div className="flow-item">
-          <h3>Dark Mode Flow</h3>
-          <ol>
-            <li>Click the 🌙 button to toggle dark mode.</li>
-            <li>Enjoy a comfortable viewing experience.</li>
-          </ol>
-        </div>
-      </section>
-
-      {/* Prototype Sketch Ideas Section */}
-      <section className="prototype-sketch">
-        <h2>ProCamShare Prototype Sketch Ideas</h2>
-        <div className="sketches">
-          <div className="sketch">
-            <img src="https://placehold.co/300x180?text=Landing+Sketch" alt="Landing Page Sketch" />
-            <p>Landing page with hero, features, and call-to-action.</p>
-          </div>
-          <div className="sketch">
-            <img src="https://placehold.co/300x180?text=Gallery+Sketch" alt="Gallery Sketch" />
-            <p>Gallery grid with filter and sort options.</p>
-          </div>
-          <div className="sketch">
-            <img src="https://placehold.co/300x180?text=Upload+Sketch" alt="Upload Sketch" />
-            <p>Upload form for adding new photos.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Prototype Section */}
-      <section className="prototype">
-        <h2>Prototype</h2>
-        <ul>
-          <li>Responsive design for all devices</li>
-          <li>Accessible color contrast</li>
-          <li>Fast and intuitive navigation</li>
-          <li>Home Screen: Logo + Navigation Menu (Gallery, Upload, My Photos, Devices)</li>
-          <li>Gallery Page: Thumbnails grid, Filter and Sort control</li>
-          <li>Upload Screen: Image selector, Text inputs for metadata, Submit button</li>
-          <li>Picture Detail: Full image, Metadata, Comment section, Delete button</li>
-        </ul>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <span>📷 ProCamShare</span>
-          </div>
-          <div className="footer-links">
-            <a href="#features">Features</a>
-            <a href="#flows">User Flows</a>
-            <a href="#prototype">Prototype</a>
-          </div>
-          <div className="footer-social">
-            <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">X</a>
-            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https'//youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="mailto:info@procamshare.com">Contact</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          &copy; {new Date().getFullYear()} Made with ❤️ for photographers. ProCamShare. All rights reserved.
-        </div>
-      </footer>
     </div>
+  );
+}
+
+// CommentPage component to show full comment UI for a given photoId from query string
+function CommentPage(props: {
+  comments: { id: number; photoId: number; author: string; text: string; timestamp: string }[];
+  onAddComment: (photoId: number, comment: { author: string; text: string }) => void;
+}) {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const photoId = Number(params.get('photoId')) || 1;
+
+  return (
+    <Comment
+      photoId={photoId}
+      comments={props.comments.filter(c => c.photoId === photoId)}
+      onAddComment={props.onAddComment}
+      standalone
+    />
   );
 }
 
@@ -178,14 +198,26 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [loginToken, setLoginToken] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [comments, setComments] = useState(initialComments);
 
-  const handleSortChange = (sortBy: string) => {
-    setCurrentSort(sortBy);
+  // Handler for selecting a photo (can be expanded)
+  const handleSelectPhoto = (photoId: number) => {
+    alert(`Photo ${photoId} selected!`);
   };
-  const handleFilterChange = (filterBy: string) => {
-    setCurrentFilter(filterBy);
+
+  // Handler to add a comment
+  const handleAddComment = (photoId: number, comment: { author: string; text: string }) => {
+    setComments(prev => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        photoId,
+        author: comment.author,
+        text: comment.text,
+        timestamp: new Date().toISOString(),
+      },
+    ]);
   };
-  const handleToggleDarkMode = () => setDarkMode((prev) => !prev);
 
   return (
     <Router>
@@ -201,15 +233,38 @@ function App() {
               statusMessage={statusMessage}
               setStatusMessage={setStatusMessage}
               setLoginToken={setLoginToken}
-              handleToggleDarkMode={handleToggleDarkMode}
-              handleSortChange={handleSortChange}
-              handleFilterChange={handleFilterChange}
+              handleToggleDarkMode={() => setDarkMode((prev) => !prev)}
+              handleSortChange={setCurrentSort}
+              handleFilterChange={setCurrentFilter}
+              comments={comments}
+              onAddComment={handleAddComment}
             />
           }
         />
         <Route path="/upload" element={<UploadPhoto />} />
         <Route path="/persona" element={<Persona />} />
+        <Route
+          path="/gallery"
+          element={
+            <Gallery
+              photos={samplePhotos}
+              onSelectPhoto={handleSelectPhoto}
+              onBack={() => window.history.back()}
+            />
+          }
+        />
+        {/* Comment page route */}
+        <Route
+          path="/comments"
+          element={
+            <CommentPage
+              comments={comments}
+              onAddComment={handleAddComment}
+            />
+          }
+        />
       </Routes>
+      <Footer />
     </Router>
   );
 }
