@@ -1,50 +1,14 @@
 import "./App.css";
 import { useState } from "react";
-import cameraBanner from "./assets/cameraBanner.jpg";
-import Toolbar from "./components/Toolbar";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UploadPhoto from "./components/Upload";
 import Persona from "./components/Persona";
 import Gallery from "./components/Gallery";
-import Comment from "./components/Comment";
 import Footer from "./components/Footer";
 import samplePhotos from "./sample_data/sample_photos";
 import initialComments from "./sample_data/initial_comments";
 import HomePage from "./pages/HomePage";
-
-// CommentPage component to show full comment UI for a given photoId from query string
-function CommentPage(props: {
-  comments: {
-    id: number;
-    photoId: number;
-    author: string;
-    text: string;
-    timestamp: string;
-  }[];
-  onAddComment: (
-    photoId: number,
-    comment: { author: string; text: string }
-  ) => void;
-}) {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const photoId = Number(params.get("photoId")) || 1;
-
-  return (
-    <Comment
-      photoId={photoId}
-      comments={props.comments.filter((c) => c.photoId === photoId)}
-      onAddComment={props.onAddComment}
-      standalone
-    />
-  );
-}
+import CommentPage from "./pages/CommentPage";
 
 function App() {
   const [currentSort, setCurrentSort] = useState("date");
