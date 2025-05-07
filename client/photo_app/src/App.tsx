@@ -1,14 +1,16 @@
-import "./App.css";
 import { useState } from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UploadPhoto from "./components/Upload";
-import Persona from "./components/Persona";
-import Gallery from "./components/Gallery";
-import Footer from "./components/Footer";
-import samplePhotos from "./sample_data/sample_photos";
+
+import "./App.css";
 import initialComments from "./sample_data/initial_comments";
-import HomePage from "./pages/HomePage";
+import samplePhotos from "./sample_data/sample_photos";
 import CommentPage from "./pages/CommentPage";
+import Footer from "./components/Footer";
+import Gallery from "./components/Gallery";
+import HomePage from "./pages/HomePage";
+import Persona from "./components/Persona";
+import UploadPhoto from "./components/Upload";
 
 function App() {
   const [currentSort, setCurrentSort] = useState("date");
