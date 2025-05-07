@@ -14,52 +14,8 @@ import Persona from "./components/Persona";
 import Gallery from "./components/Gallery";
 import Comment from "./components/Comment";
 import Footer from "./components/Footer";
-
-// Sample photo data for demonstration
-const samplePhotos = [
-  {
-    id: 1,
-    url: "./Canon XF605.jpg",
-    metadata: {
-      name: "Canon XF605",
-      camera: "Canon XF 605",
-      lens: "RF24-70mm",
-      iso: "100",
-      shutter: "1/200s",
-      aperture: "f/2.8",
-    },
-  },
-  {
-    id: 2,
-    url: "./Nikon.jpg",
-    metadata: {
-      name: "Nikon",
-      camera: "Nikon Z7",
-      lens: "24-70mm",
-      iso: "200",
-      shutter: "1/500s",
-      aperture: "f/4",
-    },
-  },
-];
-
-// Sample initial comments
-const initialComments = [
-  {
-    id: 1,
-    photoId: 1,
-    author: "Alice",
-    text: "Beautiful fail!",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    photoId: 2,
-    author: "Bob",
-    text: "Love the colors!",
-    timestamp: new Date().toISOString(),
-  },
-];
+import samplePhotos from "./sample_data/sample_photos";
+import initialComments from "./sample_data/initial_comments";
 
 function HomePage(props: {
   currentSort: string;
