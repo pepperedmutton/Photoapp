@@ -24,3 +24,6 @@ export default {
     directory: "./server/db/seeds",
   },
 };
+
+
+
