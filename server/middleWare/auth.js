@@ -1,31 +1,30 @@
-import express from 'express';
-import cors from 'cors';
-import { fileURLToPath } from 'url';
+import express from "express";
+import cors from "cors";
+import { fileURLToPath } from "url";
 
-import bcrypt from 'bcrypt';
-import path from 'path';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config({ path: '../../.env' });
+import bcrypt from "bcrypt";
+import path from "path";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config({ path: "../../.env" });
 const JWT_SECRET = process.env.JWT_SECRET;
-console.log(JWT_SECRET);
 
 export default function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
   // Check header exists
   if (!authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(401).json({ message: "No token provided" });
   }
 
-  const token = authHeader;
+  const [_bearer, token] = authHeader.split("Bearer ");
+  console.log("token recieved by auth middleware:", token);
 
+  //  Verify token — throws error if invalid/expired
+  const decoded = jwt.verify(token, JWT_SECRET);
+  console.log("decoded:", decoded);
 
-    //  Verify token — throws error if invalid/expired
-    const decoded = jwt.verify(token,JWT_SECRET);
-    
-    // Attach user data to request object
-    req.user = decoded;
+  // Attach user data to request object
+  req.user = decoded;
 
-    next(); // continue to route handler
-  
+  next(); // continue to route handler
 }
