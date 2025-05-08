@@ -20,11 +20,16 @@ export default function authMiddleware(req, res, next) {
   console.log("token recieved by auth middleware:", token);
 
   //  Verify token — throws error if invalid/expired
-  const decoded = jwt.verify(token, JWT_SECRET);
-  console.log("decoded:", decoded);
-
-  // Attach user data to request object
-  req.user = decoded;
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    console.log("decoded:", decoded);
+    // Attach user data to request object
+    req.user = decoded;
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+    res.json({ message: "An error occured when authorizing user.", error });
+  }
 
   next(); // continue to route handler
 }
