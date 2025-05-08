@@ -5,7 +5,7 @@ import Toolbar from "../components/Toolbar";
 
 import cameraBanner from "../assets/cameraBanner.jpg";
 
-export default function HomePage(props: {
+type HomePageProps = {
   currentSort: string;
   currentFilter: string;
   darkMode: boolean;
@@ -14,21 +14,20 @@ export default function HomePage(props: {
   setStatusMessage: (msg: string) => void;
   setLoginToken: (token: string) => void;
   handleToggleDarkMode: () => void;
-  handleSortChange: (sortBy: string) => void;
-  handleFilterChange: (filterBy: string) => void;
-  comments: {
-    id: number;
-    photoId: number;
-    author: string;
-    text: string;
-    timestamp: string;
-  }[];
-  onAddComment: (
-    photoId: number,
-    comment: { author: string; text: string }
-  ) => void;
-}) {
+  handleSortChange: (sort: string) => void;
+  handleFilterChange: (filter: string) => void;
+  comments: Array<{ id: number; photoId: number; author: string; text: string; timestamp: string }>;
+  onAddComment: (photoId: number, comment: { author: string; text: string }) => void;
+  handleLogout: () => void;
+};
+
+export default function HomePage(props: HomePageProps) {
   const navigate = useNavigate();
+
+  const handleLogoutAndRedirect = () => {
+    props.handleLogout();
+    navigate("/");
+  };
 
   return (
     <div className={props.darkMode ? "dark" : "light"}>
@@ -45,6 +44,7 @@ export default function HomePage(props: {
             currentSort={props.currentSort}
             currentFilter={props.currentFilter}
             loginToken={props.loginToken}
+            handleLogout={handleLogoutAndRedirect}
           />
         </nav>
       </header>

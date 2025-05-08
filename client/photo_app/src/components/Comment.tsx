@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaHome, FaMoon } from "react-icons/fa"; // If using react-icons
 import './Comment.css';
 
 interface Comment {
@@ -14,6 +15,8 @@ interface CommentProps {
   comments: Comment[];
   onAddComment: (photoId: number, comment: Omit<Comment, 'id' | 'timestamp'>) => void;
   standalone?: boolean; // If true, render the full comment UI
+  // Removed unused darkMode prop
+  handleToggleDarkMode?: () => void; // Add this for the button
 }
 
 const CommentSection: React.FC<CommentProps> = ({
@@ -21,6 +24,8 @@ const CommentSection: React.FC<CommentProps> = ({
   comments,
   onAddComment,
   standalone = false,
+  // Removed unused darkMode default value
+  handleToggleDarkMode,
 }) => {
   const navigate = useNavigate();
   const [author, setAuthor] = React.useState('');
@@ -76,6 +81,47 @@ const CommentSection: React.FC<CommentProps> = ({
   // Standalone full comment UI
   return (
     <div style={boxStyle}>
+      {/* Header Bar */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "#0077cc",
+          color: "#fff",
+          padding: "0.75rem 1.5rem",
+          borderRadius: "12px 12px 0 0",
+          margin: "-1.5rem -1.5rem 1.5rem -1.5rem"
+        }}
+      >
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            background: "none",
+            border: "none",
+            color: "#fff",
+            fontSize: "1.5rem",
+            cursor: "pointer"
+          }}
+          aria-label="Home"
+        >
+          <FaHome />
+        </button>
+        <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Comments</span>
+        <button
+          onClick={handleToggleDarkMode}
+          style={{
+            background: "none",
+            border: "none",
+            color: "#fff",
+            fontSize: "1.5rem",
+            cursor: "pointer"
+          }}
+          aria-label="Toggle dark mode"
+        >
+          <FaMoon />
+        </button>
+      </div>
       <h3 style={{ color: '#0077cc', marginBottom: '1rem' }}>Comments</h3>
       <div style={{ marginBottom: '1.5rem' }}>
         {comments.length > 0 ? (

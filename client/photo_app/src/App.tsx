@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -19,6 +19,13 @@ function App() {
   const [loginToken, setLoginToken] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [comments, setComments] = useState(initialComments);
+
+  useEffect(() => {
+    const token = localStorage.getItem('loginToken');
+    if (token) {
+      setLoginToken(token);
+    }
+  }, []);
 
   // Handler for selecting a photo (can be expanded)
   const handleSelectPhoto = (photoId: number) => {
@@ -42,6 +49,12 @@ function App() {
     ]);
   };
 
+  const handleLogout = () => {
+    setLoginToken("");
+    localStorage.removeItem("loginToken");
+    setStatusMessage("Logged out!");
+  };
+
   return (
     <Router>
       <Routes>
@@ -61,6 +74,7 @@ function App() {
               handleFilterChange={setCurrentFilter}
               comments={comments}
               onAddComment={handleAddComment}
+              handleLogout={handleLogout}
             />
           }
         />
