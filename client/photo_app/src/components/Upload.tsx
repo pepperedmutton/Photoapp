@@ -62,7 +62,7 @@ const UploadPhoto: React.FC = () => {
     formData.append("img", file);
     formData.append("title", title);
     formData.append("description", description);
-    // console.log("react form data:", formData.get("img"));
+    console.log("react form data:", formData);
 
     try {
       const token = localStorage.getItem("photo-app-token");
@@ -72,11 +72,12 @@ const UploadPhoto: React.FC = () => {
           Authorization: `Bearer ${token}`,
           "Content-type": "application/json",
         },
-        body: formData,
-        // body: JSON.stringify({ message: "test" }),
+        body: formData.get("img"),
       });
 
       if (res.ok) {
+        console.log();
+
         setStatusMessage("Photo uploaded successfully!");
         setPreview(null);
         setTitle("");
