@@ -87,17 +87,25 @@ h2 {
 }
 
 .feature {
+  position: relative;
+  overflow: hidden;
   background: white;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
+  z-index: 1;
 }
 
 .feature:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.feature h3,
+.feature p {
+  color: #333;
 }
 
 /* Flows */
@@ -119,7 +127,6 @@ footer {
   font-size: 0.9rem;
   color: #777;
 }
-
 
 /* Animations */
 @keyframes fadeInUp {
@@ -150,23 +157,23 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* Dark Mode */
 body.dark {
   background: #121212;
-  color: #e0e0e0;
+  color: #222;
 }
 
 body.dark .navbar {
   background: #1f1f1f;
 }
 
-body.dark .feature {
+body.dark footer {
   background: #1f1f1f;
 }
 
-body.dark footer {
-  background: #1f1f1f;
+.dark {
+  background: #000 !important;
+  color: #fff !important;
 }
 
 /* Responsive */
@@ -243,15 +250,15 @@ Auth Form Styling
   background: #005fa3;
 }
 /* Dark Mode Defaults */
-div.dark {
+/*div.dark {
   background: grey;
   color: #e0e0e0;
-}
-
+} */
+/*
 body.dark {
   background: #121212;
   color: #e0e0e0;
-}
+} */
 
 header.dark, footer.dark {
   background: #1e1e1e;
@@ -427,5 +434,3 @@ body.dark .button-delete:hover {
   color: #bbb;
   margin-top: 1rem;
 }
-
-
