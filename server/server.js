@@ -22,6 +22,9 @@ app.use(express.static(path.join(__dirname, "../client/photo_app/dist")));
 
 const PORT = 3000;
 
+app.get("/api/test", authMiddleware, (req, res) =>
+  res.json({ message: "this is a test" })
+);
 app.use("/api/login", loginRouter);
 app.use("/api/signup", signupRouter);
 app.use("/api/image", authMiddleware, imageRouter);
