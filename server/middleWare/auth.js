@@ -6,7 +6,8 @@ import bcrypt from "bcrypt";
 import path from "path";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
+// dotenv.config({ path: "../../.env" });
+dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export default function authMiddleware(req, res, next) {
@@ -20,9 +21,13 @@ export default function authMiddleware(req, res, next) {
   console.log("token recieved by auth middleware:", token);
 
   //  Verify token — throws error if invalid/expired
+  console.log("jwt secret at auth middleware:", JWT_SECRET);
+
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    console.log("decoded:", decoded);
+    const decoded = jwt.verify(token, JWT_SECRET, (err, decoded) => {
+      console.error("jwt verify error:", err);
+      console.log("decoded:", decoded);
+    });
     // Attach user data to request object
     req.user = decoded;
   } catch (error) {

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import knex from "../knex.js";
 
+// dotenv.config({ path: "../../.env" });
 dotenv.config();
 const loginRouter = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -19,6 +20,8 @@ loginRouter.post("/", async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
     const token = jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
+    console.log(token);
+
     return res.json({
       resultMessage: "success",
       resultCode: 1,
