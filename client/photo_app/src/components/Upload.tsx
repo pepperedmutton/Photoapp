@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import "../App.css";
+import { Photo, Metadata } from "../types.ts";
 
-const UploadPhoto: React.FC = () => {
+const UploadPhoto: React.FC = ({ setUserPhotos }) => {
   const [preview, setPreview] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,43 +56,61 @@ const UploadPhoto: React.FC = () => {
     if (!file) {
       setStatusMessage("Please select a photo to upload.");
       return;
+    } else {
+      const name = file.name;
+      localStorage.setItem(name, file);
+      const metadata: Metadata = {
+        name: name,
+        camera: null,
+        lens: null,
+        iso: null,
+        shutter: null,
+        aperture: null,
+      };
+      const picture: Photo = {
+        id: Math.floor(Math.random() * 1_000_000), // assign photo a random ID
+        url: "", // todo: use localstorage here. It seems like a dataUrl can be created with the canvas API
+        metadata,
+      };
+      setPhoto(picture);
+      console.log(picture);
     }
 
-    setStatusMessage("Uploading...");
+    // setStatusMessage("Uploading...");
 
-    const formData = new FormData();
-    formData.append("img", file);
-    formData.append("title", title);
-    formData.append("description", description);
-    console.log("react form data:", formData);
+    // const formData = new FormData();
+    // formData.append("img", file);
+    // formData.append("title", title);
+    // formData.append("description", description);
+    // console.log("react form data:", formData);
 
-    try {
-      const token = localStorage.getItem("photo-app-token");
-      const res = await fetch("/api/images/", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-        body: formData.get("img"),
-      });
+    // try {
+    //   const token = localStorage.getItem("photo-app-token");
+    //   const res = await fetch("/api/images/", {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       "Content-type": "application/json",
+    //     },
+    //     body: formData.get("img"),
+    //   });
 
-      if (res.ok) {
-        console.log();
+    //   if (res.ok) {
+    //     console.log();
 
-        setStatusMessage("Photo uploaded successfully!");
-        setPreview(null);
-        setTitle("");
-        setDescription("");
-        if (fileInputRef.current) fileInputRef.current.value = "";
-      } else {
-        console.error(res);
-        setStatusMessage("Upload failed.");
-      }
-    } catch (error) {
-      console.error(error);
-      setStatusMessage("Error uploading photo.");
-    }
+    //     setStatusMessage("Photo uploaded successfully!");
+    //     setPreview(null);
+    //     setTitle("");
+    //     setDescription("");
+    //     if (fileInputRef.current) fileInputRef.current.value = "";
+    //   } else {
+    //     console.error(res);
+    //     setStatusMessage("Upload failed.");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   setStatusMessage("Error uploading photo.");
+    // }
   };
 
   return (
