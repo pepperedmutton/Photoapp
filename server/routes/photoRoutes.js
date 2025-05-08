@@ -26,7 +26,7 @@ imageRouter.get("/", async (req, res) => {
   });
 });
 
-imageRouter.post("/test", async (req, res) => {
+imageRouter.post("/", async (req, res) => {
   const data = req.body.formData;
   console.log(data);
 

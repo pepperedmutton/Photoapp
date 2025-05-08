@@ -20,7 +20,6 @@ loginRouter.post("/", async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
     const token = jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
-    console.log(token);
 
     return res.json({
       resultMessage: "success",
