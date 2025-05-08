@@ -1,12 +1,12 @@
 export async function up(knex) {
     await knex.schema.alterTable('users', table => {
-        table.text('token').alter();
-      });
+        table.dropColumn('token');
+      })
     }      
   
-  export async function down(knex) {
+export async function down(knex) {
     return knex.schema.alterTable('users',table => {
-        table.string('token').alter();
+        table.text('token');
     })
-  }
+    }
   
