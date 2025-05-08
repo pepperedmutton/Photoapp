@@ -85,7 +85,10 @@ function App() {
             />
           }
         />
-        <Route path="/upload" element={<UploadPhoto />} />
+        <Route
+          path="/upload"
+          element={<UploadPhoto setUserPhotos={setUserPhotos} />}
+        />
         <Route path="/persona" element={<Persona />} />
         <Route
           path="/gallery"
