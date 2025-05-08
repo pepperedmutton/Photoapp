@@ -30,7 +30,7 @@ imageRouter.post("/", async (req, res) => {
   const data = req.body.formData;
   console.log(data);
 
-  res.json({ message: "got data" });
+  res.json({ message: "got data", data });
 });
 
 // imageRouter.post("/", async (req, res) => {
