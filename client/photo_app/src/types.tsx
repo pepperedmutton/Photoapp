@@ -6,11 +6,11 @@ type APIResult = {
 
 interface Metadata {
   name: string;
-  camera: string;
-  lens: string;
-  iso: string;
-  shutter: string;
-  aperture: string;
+  camera: string | null;
+  lens: string | null;
+  iso: string | null;
+  shutter: string | null;
+  aperture: string | null;
 }
 
 interface Photo {
