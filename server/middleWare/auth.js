@@ -18,15 +18,11 @@ export default function authMiddleware(req, res, next) {
   }
 
   const [_bearer, token] = authHeader.split("Bearer ");
-  console.log("token recieved by auth middleware:", token);
 
   //  Verify token — throws error if invalid/expired
-  console.log("jwt secret at auth middleware:", JWT_SECRET);
-
   try {
     const decoded = jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      console.error("jwt verify error:", err);
-      console.log("decoded:", decoded);
+      if (err) console.error("jwt verify error:", err);
     });
     // Attach user data to request object
     req.user = decoded;
