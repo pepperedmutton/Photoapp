@@ -12,6 +12,7 @@ import loginRouter from "./routes/loginRouter.js";
 import searchRouter from "./routes/searchRouter.js";
 import signupRouter from "./routes/signupRoute.js";
 
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

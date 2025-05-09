@@ -82,8 +82,7 @@ const UploadPhoto: React.FC = ({ setUserPhotos }) => {
     // formData.append("img", file);
     // formData.append("title", title);
     // formData.append("description", description);
-    // console.log("react form data:", formData);
-
+    // console.log("react form data:", formData
     // try {
     //   const token = localStorage.getItem("photo-app-token");
     //   const res = await fetch("/api/images/", {
