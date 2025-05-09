@@ -14,7 +14,7 @@ import galleryRouter from "./routes/galleryRouter.js";
 import searchRouter from "./routes/searchRouter.js";
 dotenv.config({ path: "../.env" });
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = dotenv.config().parsed.JWT_SECRET || process.env.JWT_SECRET;
 // console.log("jwt secret:", JWT_SECRET);
 const app = express();
 const __filename = fileURLToPath(import.meta.url);

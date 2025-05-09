@@ -64,11 +64,13 @@ const UploadPhoto: React.FC = () => {
     formData.append('description', description);
 
     try {
-      // If you use authentication, get your token here (e.g. from localStorage or context)
-      // const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const res = await fetch('/api/images', {
         method: 'POST',
-        // headers: { Authorization: `Bearer ${token}` }, // Uncomment and set token if needed
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // 'Content-Type' should NOT be set when sending FormData
+        },
         body: formData,
       });
 
